@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tfg.parkplatesystem.controller.ControladorPrincipal" spacing="10" alignment="CENTER">
+    <children>
+        <Label fx:id="welcomeLabel" text="Bienvenido" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Button text="Gestión de Plazas de Aparcamiento" onAction="#handleGestionPlazasButton"/>
+        <Button text="Gestión de Reservas" onAction="#handleGestionReservasButton"/>
+        <Button text="Gestión de Usuarios" onAction="#handleGestionUsuariosButton"/>
+        <Button text="Gestión de Pagos" onAction="#handleGestionPagosButton"/>
+        <Button text="Gestión de Sanciones" onAction="#handleGestionSancionesButton"/>
+        <Button text="Gestión de Notificaciones" onAction="#handleGestionNotificacionesButton"/>
+        <Button text="Gestión de Tarifas" onAction="#handleGestionTarifasButton"/>
+        <Button text="Gestión de Eventos" onAction="#handleGestionEventosButton"/>
+        <Button text="Gestión de Tarjetas" onAction="#handleGestionTarjetasButton"/>
+        <Button text="Gestión de Incidencias" onAction="#handleGestionIncidenciasButton"/>
+        <Button text="Gestión de Mantenimiento" onAction="#handleGestionMantenimientoButton"/>
+        <Button text="Gestión de Reportes" onAction="#handleGestionReportesButton"/>
+        <Button text="Gestión de Entradas y Salidas" onAction="#handleGestionEntradasSalidasButton"/>
+        <Button text="Gestión de Registros" onAction="#handleGestionRegistrosButton"/>
+        <Button text="Gestión de Roles" onAction="#handleGestionRolesButton"/>
+        <Button text="Cerrar Sesión" onAction="#handleLogoutButton"/>
+    </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

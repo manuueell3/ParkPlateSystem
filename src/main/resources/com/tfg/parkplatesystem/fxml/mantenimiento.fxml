@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tfg.parkplatesystem.controller.ControladorMantenimiento" spacing="10" alignment="CENTER">
+    <children>
+        <Label text="Gestión de Mantenimiento" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+        <TableView fx:id="mantenimientoTable">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
+                <TableColumn fx:id="fechaColumn" text="Fecha"/>
+                <TableColumn fx:id="estadoColumn" text="Estado"/>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <TextField fx:id="descripcionTextField" promptText="Descripción"/>
+                <TextField fx:id="fechaTextField" promptText="Fecha"/>
+                <TextField fx:id="estadoTextField" promptText="Estado"/>
+                <Button text="Añadir Mantenimiento" onAction="#handleAddMantenimiento"/>
+                <Button text="Eliminar Mantenimiento" onAction="#handleDeleteMantenimiento"/>
+            </children>
+        </HBox>
+
+        <Button text="Volver al Menú Principal" onAction="#handleBackButton"/>
+    </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>
