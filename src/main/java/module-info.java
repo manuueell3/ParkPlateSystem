@@ -12,6 +12,7 @@ module com.tfg.parkplatesystem {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires mysql.connector.java;
 
     opens com.tfg.parkplatesystem.controller to javafx.fxml;
     opens com.tfg.parkplatesystem.model to javafx.base;

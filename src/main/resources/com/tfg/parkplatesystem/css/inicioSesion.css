@@ -1,0 +1,74 @@
+.label-exitoso {
+    -fx-text-fill: green;
+}
+
+.label-error {
+    -fx-text-fill: red;
+}
+
+.error-text {
+    -fx-text-fill: red;
+}
+
+.menu-button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #cccccc; /* Color de borde ligero para los botones */
+    -fx-border-width: 0 0 1 0; /* Borde solo en la parte inferior */
+    -fx-padding: 10px 20px; /* Ajuste de espaciado interior */
+    -fx-font-size: 14px; /* Tamaño de texto */
+}
+
+.menu-button:hover {
+    -fx-background-color: #F15230; /* Color naranja para el efecto hover */
+    -fx-text-fill: white; /* Texto blanco para mejor contraste */
+}
+
+
+.vbox {
+    -fx-background-color: #ff4500; /* Un color naranja que combina con el logo de Chinook Music */
+}
+
+.text-field {
+    -fx-background-color: #FFF;
+    -fx-border-color: #CCC;
+}
+
+.button:hover {
+    -fx-background-color: #FF7519; /* Color naranja más claro para efecto hover */
+    -fx-cursor: hand; /* Cambia el cursor a una mano para indicar interactividad */
+}
+
+.button {
+    -fx-background-color: #E65C00; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
+    -fx-text-fill: #000000; /* Color de texto negro para contraste */
+    -fx-font-weight: bold; /* Negrita para resaltar los botones */
+    -fx-border-color: #000000; /* Borde negro para combinar con el estilo de la página */
+    -fx-border-width: 2; /* Ancho de borde de 2px para definición */
+}
+
+
+.grid-pane {
+    -fx-background-color: #E65C00; /* Color de fondo naranja para el GridPane */
+    -fx-border-color: black; /* Borde negro */
+    -fx-border-width: 5px; /* Ancho de borde de 5px */
+    -fx-padding: 10px; /* Relleno de 10px */
+}
+
+.text-field:focused {
+    -fx-border-color: #000000; /* Cambia el color del borde cuando el campo está enfocado */
+    -fx-border-width: 3; /* Hace el borde más grueso cuando está enfocado */
+}
+
+.text-field {
+    -fx-background-color: #ffffff; /* Fondo blanco para los campos de texto */
+    -fx-text-fill: #000000; /* Color de texto negro para contraste */
+    -fx-border-color: #000000; /* Borde negro para coherencia con los botones */
+    -fx-border-width: 2; /* Ancho de borde de 2px */
+}
+
+
+
+
+
+

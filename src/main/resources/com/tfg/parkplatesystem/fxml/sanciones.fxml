@@ -9,7 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tfg.parkplatesystem.controller.ControladorSanciones" spacing="10" alignment="CENTER">
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorSanciones" spacing="10" alignment="CENTER">
     <children>
         <Label text="Gestión de Sanciones" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
@@ -39,4 +41,7 @@
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
+    <stylesheets>
+        <URL value="@../css/estilos.css"/>
+    </stylesheets>
 </VBox>

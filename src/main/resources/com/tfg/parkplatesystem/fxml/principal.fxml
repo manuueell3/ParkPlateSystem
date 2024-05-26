@@ -1,31 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tfg.parkplatesystem.controller.ControladorPrincipal" spacing="10" alignment="CENTER">
-    <children>
-        <Label fx:id="welcomeLabel" text="Bienvenido" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-        <Button text="Gestión de Plazas de Aparcamiento" onAction="#handleGestionPlazasButton"/>
-        <Button text="Gestión de Reservas" onAction="#handleGestionReservasButton"/>
-        <Button text="Gestión de Usuarios" onAction="#handleGestionUsuariosButton"/>
-        <Button text="Gestión de Pagos" onAction="#handleGestionPagosButton"/>
-        <Button text="Gestión de Sanciones" onAction="#handleGestionSancionesButton"/>
-        <Button text="Gestión de Notificaciones" onAction="#handleGestionNotificacionesButton"/>
-        <Button text="Gestión de Tarifas" onAction="#handleGestionTarifasButton"/>
-        <Button text="Gestión de Eventos" onAction="#handleGestionEventosButton"/>
-        <Button text="Gestión de Tarjetas" onAction="#handleGestionTarjetasButton"/>
-        <Button text="Gestión de Incidencias" onAction="#handleGestionIncidenciasButton"/>
-        <Button text="Gestión de Mantenimiento" onAction="#handleGestionMantenimientoButton"/>
-        <Button text="Gestión de Reportes" onAction="#handleGestionReportesButton"/>
-        <Button text="Gestión de Entradas y Salidas" onAction="#handleGestionEntradasSalidasButton"/>
-        <Button text="Gestión de Registros" onAction="#handleGestionRegistrosButton"/>
-        <Button text="Gestión de Roles" onAction="#handleGestionRolesButton"/>
-        <Button text="Cerrar Sesión" onAction="#handleLogoutButton"/>
-    </children>
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tfg.parkplatesystem.controller.ControladorPrincipal">
+    <top>
+        <HBox prefHeight="100.0" styleClass="top-bar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="39.0" prefWidth="780.0" spacing="5" style="-fx-background-color: #378e67;" HBox.hgrow="ALWAYS">
+                <ImageView fx:id="iconoInicioSesion" fitHeight="30.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icono_usuario.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="mensajeBienvenida" style="-fx-text-fill: white; -fx-font-size: 16px;" text="Bienvenido, [usuario]!" />
+            </VBox>
+        </HBox>
+    </top>
+    <left>
+        <AnchorPane prefHeight="402.0" prefWidth="200.0">
+            <children>
+                <ImageView fx:id="imagenChinook" fitHeight="402.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/parkplatesystem.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+    <stylesheets>
+        <URL value="@../css/principal.css" />
+    </stylesheets>
+   <right>
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+            <content>
+                <VBox fx:id="elementosMenu" alignment="CENTER" prefWidth="638.0">
+                    <children>
+                        <Button fx:id="botonGestionUsuarios" mnemonicParsing="false" onAction="#handleGestionUsuariosButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Usuarios">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="184.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_usuarios.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionPagos" mnemonicParsing="false" onAction="#handleGestionPagosButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Pagos">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_pagos.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionSanciones" mnemonicParsing="false" onAction="#handleGestionSancionesButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Sanciones">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_sanciones.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionNotificaciones" mnemonicParsing="false" onAction="#handleGestionNotificacionesButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Notificaciones">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_notificaciones.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionTarifas" mnemonicParsing="false" onAction="#handleGestionTarifasButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Tarifas">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_tarifas.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionEventos" mnemonicParsing="false" onAction="#handleGestionEventosButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Eventos">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_eventos.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionTarjetas" mnemonicParsing="false" onAction="#handleGestionTarjetasButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Tarjetas">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_tarjetas.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionIncidencias" mnemonicParsing="false" onAction="#handleGestionIncidenciasButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Incidencias">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_incidencias.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionMantenimiento" mnemonicParsing="false" onAction="#handleGestionMantenimientoButton" prefHeight="52.0" prefWidth="658.0" styleClass="menu-button" text="Gestión de Mantenimiento">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_mantenimiento.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionReportes" mnemonicParsing="false" onAction="#handleGestionReportesButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Reportes">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_reportes.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionEntradasSalidas" mnemonicParsing="false" onAction="#handleGestionEntradasSalidasButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Entradas y Salidas">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_entradas_salidas.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionRegistros" mnemonicParsing="false" onAction="#handleGestionRegistrosButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Registros">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_registros.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonGestionRoles" mnemonicParsing="false" onAction="#handleGestionRolesButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Gestión de Roles">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_roles.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#handleCerrarSesionButton" prefHeight="40.0" prefWidth="575.0" styleClass="menu-button" text="Cerrar Sesión">
+                            <graphic>
+                                <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/icono_cerrar_sesion.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+   </right>
+</BorderPane>

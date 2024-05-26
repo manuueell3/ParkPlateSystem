@@ -1,0 +1,63 @@
+.label-exitoso {
+    -fx-text-fill: green;
+}
+
+.label-error {
+    -fx-text-fill: red;
+}
+
+.error-text {
+    -fx-text-fill: red;
+}
+
+.menu-button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #cccccc; /* Color de borde ligero para los botones */
+    -fx-border-width: 0 0 1 0; /* Borde solo en la parte inferior */
+    -fx-padding: 10px 20px; /* Ajuste de espaciado interior */
+    -fx-font-size: 14px; /* Tamaño de texto */
+}
+
+.menu-button:hover {
+    -fx-background-color: #5a9579; /* Color naranja para el efecto hover */
+    -fx-text-fill: white; /* Texto blanco para mejor contraste */
+}
+
+.vbox {
+    -fx-background-color: #ff4500; /* Un color naranja que combina con el logo de Chinook Music */
+}
+
+.text-field {
+    -fx-background-color: #FFF;
+    -fx-border-color: #CCC;
+}
+
+.mensaje-bienvenida {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.top-bar {
+    -fx-background-color: black; /* El color de fondo naranja como en la imagen */
+    -fx-border-color: black; /* Define el color del borde */
+    -fx-border-width: 0 0 0 0; /* top right bottom left */
+    -fx-border-style: solid;
+}
+
+/* Estilo para el HBox que contiene el mensaje de bienvenida y la imagen */
+HBox {
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 10px;
+}
+
+/* Estilo para el VBox que contiene el mensaje de bienvenida y la imagen */
+VBox {
+    -fx-alignment: center;
+}
+
+/* Estilo para la imagen de usuario */
+#iconoInicioSesion {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
