@@ -19,23 +19,43 @@ public class ControladorPrincipal {
     private Label mensajeBienvenida;
 
     @FXML
-    private Button botonGestionUsuarios; // Solo visible para administradores
-
+    private Button botonGestionUsuarios;
     @FXML
+    private Button botonGestionRoles;
+    @FXML
+    private Button botonGestionTarifas;
+    @FXML
+    private Button botonGestionReportes;
+    @FXML
+    private Button botonGestionMantenimiento;
+    @FXML
+    private Button botonGestionPagos;
+    @FXML
+    private Button botonGestionSanciones;
+    @FXML
+    private Button botonGestionNotificaciones;
+    @FXML
+    private Button botonGestionEventos;
+    @FXML
+    private Button botonGestionTarjetas;
+    @FXML
+    private Button botonGestionIncidencias;
+    @FXML
+    private Button botonGestionEntradasSalidas;
+    @FXML
+    private Button botonGestionRegistros;
+    @FXML
+    private Button botonGestionPlazasAparcamiento;
+    @FXML
+    private Button botonGestionReservas;
+    @FXML
+    private Button botonCerrarSesion;
+
     private Usuario usuario;
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        configurarInterfazSegunRol();
         mensajeBienvenida.setText("Bienvenido, " + usuario.getNombre() + " " + usuario.getApellidos());
-    }
-
-    private void configurarInterfazSegunRol() {
-        if (usuario.esAdministrador()) {
-            botonGestionUsuarios.setVisible(true);
-        } else {
-            botonGestionUsuarios.setVisible(false);
-        }
     }
 
     @FXML
@@ -44,18 +64,28 @@ public class ControladorPrincipal {
     }
 
     @FXML
-    public void handleGestionPlazasButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/gestionPlazas.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento");
-    }
-
-    @FXML
-    public void handleGestionReservasButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/reservas.fxml", "Park Plate System - Gestión de Reservas");
-    }
-
-    @FXML
     public void handleGestionUsuariosButton(ActionEvent event) {
         cambiarEscena("/com/tfg/parkplatesystem/fxml/usuarios.fxml", "Park Plate System - Gestión de Usuarios");
+    }
+
+    @FXML
+    public void handleGestionRolesButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/roles.fxml", "Park Plate System - Gestión de Roles");
+    }
+
+    @FXML
+    public void handleGestionTarifasButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/tarifas.fxml", "Park Plate System - Gestión de Tarifas");
+    }
+
+    @FXML
+    public void handleGestionReportesButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/reportes.fxml", "Park Plate System - Gestión de Reportes");
+    }
+
+    @FXML
+    public void handleGestionMantenimientoButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/mantenimiento.fxml", "Park Plate System - Gestión de Mantenimiento");
     }
 
     @FXML
@@ -74,11 +104,6 @@ public class ControladorPrincipal {
     }
 
     @FXML
-    public void handleGestionTarifasButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/tarifas.fxml", "Park Plate System - Gestión de Tarifas");
-    }
-
-    @FXML
     public void handleGestionEventosButton(ActionEvent event) {
         cambiarEscena("/com/tfg/parkplatesystem/fxml/eventos.fxml", "Park Plate System - Gestión de Eventos");
     }
@@ -94,16 +119,6 @@ public class ControladorPrincipal {
     }
 
     @FXML
-    public void handleGestionMantenimientoButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/mantenimiento.fxml", "Park Plate System - Gestión de Mantenimiento");
-    }
-
-    @FXML
-    public void handleGestionReportesButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/reportes.fxml", "Park Plate System - Gestión de Reportes");
-    }
-
-    @FXML
     public void handleGestionEntradasSalidasButton(ActionEvent event) {
         cambiarEscena("/com/tfg/parkplatesystem/fxml/entradaSalida.fxml", "Park Plate System - Gestión de Entradas y Salidas");
     }
@@ -114,8 +129,13 @@ public class ControladorPrincipal {
     }
 
     @FXML
-    public void handleGestionRolesButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/roles.fxml", "Park Plate System - Gestión de Roles");
+    public void handleGestionPlazasAparcamientoButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/plazasAparcamiento.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento");
+    }
+
+    @FXML
+    public void handleGestionReservasButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/reservas.fxml", "Park Plate System - Gestión de Reservas");
     }
 
     @FXML
@@ -135,7 +155,45 @@ public class ControladorPrincipal {
     private void cambiarEscena(String fxmlPath, String titulo) {
         try {
             Stage stage = (Stage) mensajeBienvenida.getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Pasa el usuario al controlador de la nueva escena
+            Object controlador = loader.getController();
+            if (controlador instanceof ControladorPrincipal) {
+                ((ControladorPrincipal) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorPlazasAparcamiento) {
+                ((ControladorPlazasAparcamiento) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorPagos) {
+                ((ControladorPagos) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorSanciones) {
+                ((ControladorSanciones) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorNotificaciones) {
+                ((ControladorNotificaciones) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorEventos) {
+                ((ControladorEventos) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorTarjetas) {
+                ((ControladorTarjetas) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorIncidencias) {
+                ((ControladorIncidencias) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorEntradasSalidas) {
+                ((ControladorEntradasSalidas) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorRegistro) {
+                ((ControladorRegistro) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorUsuarios) {
+                ((ControladorUsuarios) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorRoles) {
+                ((ControladorRoles) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorTarifas) {
+                ((ControladorTarifas) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorReportes) {
+                ((ControladorReportes) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorMantenimiento) {
+                ((ControladorMantenimiento) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorReservas) {
+                ((ControladorReservas) controlador).setUsuario(usuario);
+            }
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle(titulo);

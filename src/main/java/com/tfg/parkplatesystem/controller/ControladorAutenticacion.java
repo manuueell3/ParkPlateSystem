@@ -40,11 +40,7 @@ public class ControladorAutenticacion {
         try {
             Usuario usuario = Usuario.verificarCredenciales(email, password);
             if (usuario != null) {
-                if (usuario.esAdministrador()) {
-                    cambiarAPantallaAdministrador(usuario);
-                } else {
-                    cambiarAPantallaPrincipal(usuario);
-                }
+                cambiarAPantallaPrincipal(usuario);
             } else {
                 errorLabel.setText("Correo electrónico o contraseña incorrectos.");
             }
@@ -54,24 +50,16 @@ public class ControladorAutenticacion {
         }
     }
 
-    private void cambiarAPantallaAdministrador(Usuario usuario) throws Exception {
-        Stage stage = (Stage) emailTextField.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/administrador.fxml"));
-        Parent root = loader.load();
-
-        // Pasa el usuario al controlador de la pantalla de administrador
-        ControladorAdministrador controlador = loader.getController();
-        controlador.setUsuario(usuario);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Park Plate System - Administrador");
-        stage.show();
-    }
-
     private void cambiarAPantallaPrincipal(Usuario usuario) throws Exception {
         Stage stage = (Stage) emailTextField.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principal.fxml"));
+        FXMLLoader loader;
+
+        if (usuario.esAdministrador()) {
+            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/VentanaPrincipalAdministrador.fxml"));
+        } else {
+            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/VentanaPrincipalUsuario.fxml"));
+        }
+
         Parent root = loader.load();
 
         // Pasa el usuario al controlador de la pantalla principal

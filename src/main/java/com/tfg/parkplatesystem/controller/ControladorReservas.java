@@ -1,5 +1,6 @@
 package com.tfg.parkplatesystem.controller;
 
+import com.tfg.parkplatesystem.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +12,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.tfg.parkplatesystem.model.Reserva;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class ControladorReservas {
 
     @FXML
     private TableView<Reserva> reservasTable;
+
+    @FXML
+    private Usuario usuario;
+
+    @FXML
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @FXML
     private TableColumn<Reserva, Long> idColumn;
@@ -53,12 +63,23 @@ public class ControladorReservas {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) reservasTable.getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/tfg/parkplatesystem/fxml/principal.fxml")));
+            FXMLLoader loader;
+            if (usuario.esAdministrador()) {
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+            }
+            Parent root = loader.load();
+
+            // Pasar el usuario al controlador de la nueva escena
+            ControladorPrincipal controladorPrincipal = loader.getController();
+            controladorPrincipal.setUsuario(usuario);
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Park Plate System - Principal");
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

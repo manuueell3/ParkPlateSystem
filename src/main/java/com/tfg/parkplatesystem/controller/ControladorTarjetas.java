@@ -1,5 +1,6 @@
 package com.tfg.parkplatesystem.controller;
 
+import com.tfg.parkplatesystem.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,14 @@ public class ControladorTarjetas {
 
     @FXML
     private TableView<Tarjeta> tarjetasTable;
+
+    @FXML
+    private Usuario usuario;
+
+    @FXML
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @FXML
     private TableColumn<Tarjeta, Long> idColumn;
@@ -53,7 +62,13 @@ public class ControladorTarjetas {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) tarjetasTable.getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/tfg/parkplatesystem/fxml/principal.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+            Parent root = loader.load();
+
+            // Pasa el usuario al controlador de la vista principal
+            ControladorPrincipal controladorPrincipal = loader.getController();
+            controladorPrincipal.setUsuario(usuario);
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Park Plate System - Principal");

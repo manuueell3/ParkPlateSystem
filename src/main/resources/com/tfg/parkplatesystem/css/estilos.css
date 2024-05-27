@@ -8,7 +8,7 @@
 }
 
 .button {
-    -fx-background-color: #E65C00; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
+    -fx-background-color: #5a9579; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
     -fx-text-fill: #000000; /* Color de texto negro para contraste */
     -fx-font-weight: bold; /* Negrita para resaltar los botones */
     -fx-border-color: #000000; /* Borde negro para combinar con el estilo de la página */
@@ -16,7 +16,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #FF7519; /* Color naranja más claro para efecto hover */
+    -fx-background-color: #35d98e; /* Color naranja más claro para efecto hover */
     -fx-cursor: hand; /* Cambia el cursor a una mano para indicar interactividad */
 }
 
@@ -33,7 +33,7 @@
 }
 
 .grid-pane {
-    -fx-background-color: #E65C00; /* Color de fondo naranja para el GridPane */
+    -fx-background-color: #5a9579; /* Color de fondo naranja para el GridPane */
     -fx-border-color: black; /* Borde negro */
     -fx-border-width: 5px; /* Ancho de borde de 5px */
     -fx-padding: 10px; /* Relleno de 10px */
@@ -49,18 +49,18 @@
 /* Estilos para las ventanas emergentes (Dialogs) */
 .dialog-pane {
     -fx-background-color: #f0f0f0; /* Un fondo más claro para las ventanas emergentes */
-    -fx-border-color: #E65C00; /* Borde que combina con el tema general */
+    -fx-border-color: #5a9579; /* Borde que combina con el tema general */
     -fx-border-width: 2px; /* Ancho de borde para las ventanas emergentes */
 }
 
 .dialog-pane .button-bar .button {
-    -fx-background-color: #E65C00; /* Estilos para botones en las ventanas emergentes */
+    -fx-background-color: #5a9579; /* Estilos para botones en las ventanas emergentes */
     -fx-text-fill: #ffffff; /* Texto blanco para botones en ventanas emergentes */
     -fx-font-weight: bold; /* Negrita para los botones en ventanas emergentes */
 }
 
 .dialog-pane .button-bar .button:hover {
-    -fx-background-color: #FF7519; /* Efecto hover para botones en ventanas emergentes */
+    -fx-background-color: #5a9579; /* Efecto hover para botones en ventanas emergentes */
 }
 
 .dialog-pane .label {
@@ -69,7 +69,16 @@
 }
 
 .dialog-pane .header-panel .header {
-    -fx-background-color: #E65C00; /* Fondo para el encabezado de las ventanas emergentes */
+    -fx-background-color: #5a9579; /* Fondo para el encabezado de las ventanas emergentes */
     -fx-text-fill: #ffffff; /* Color de texto para el encabezado de las ventanas emergentes */
     -fx-font-weight: bold; /* Negrita para el texto del encabezado de las ventanas emergentes */
+}
+
+.boton-eliminar {
+    -fx-background-color: #d33c46; /* Rojo por defecto */
+    -fx-text-fill: #000000; /* Texto blanco */
+}
+
+.boton-eliminar:hover {
+    -fx-background-color: #ff0012; /* Rojo más oscuro cuando se pasa el ratón por encima */
 }

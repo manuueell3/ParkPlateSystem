@@ -4,69 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04b73eeb-e7da-4765-9828-39ad0a3a9a26" name="Changes" comment="ParkPlateSystem con estructura completa (24/05/2024 2:28)">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorAdministrador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/util/UtilMysql.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/estilos.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/inicioSesion.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/principal.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/administrador.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_candado.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_cerrar_sesion.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_entradas_salidas.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_eventos.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_incidencias.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_mantenimiento.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_notificaciones.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_pagos.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_registros.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_reportes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_roles.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_sanciones.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_tarifas.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_tarjetas.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_usuario.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_usuarios.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/parkplatesystem.png" afterDir="false" />
+    <list default="true" id="04b73eeb-e7da-4765-9828-39ad0a3a9a26" name="Changes" comment="ParkPlateSystem actualización (26/05/2024 3:33)">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/ventanaPrincipalAdministrador.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/ventanaPrincipalUsuario.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_aparcamiento.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_reservas.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/AplicacionParkPlateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/AplicacionParkPlateSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorAutenticacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorAutenticacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEntradasSalidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEntradasSalidas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEventos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorIncidencias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorIncidencias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorMantenimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorMantenimiento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorNotificaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorNotificaciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPagos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPagos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazasAparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazasAparcamiento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Incidencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Incidencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Mantenimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Mantenimiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Notificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Notificacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Pago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Pago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/PlazaAparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/PlazaAparcamiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Registro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/RegistroEntradaSalida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/RegistroEntradaSalida.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Reporte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Reporte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Reserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Rol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Sancion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Sancion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Tarifa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Tarifa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Tarjeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Tarjeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Vehiculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Vehiculo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/entradaSalida.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/entradaSalida.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/eventos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/eventos.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/gestionPlazas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/gestionPlazas.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/incidencias.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/incidencias.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/inicioSesion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/inicioSesion.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/mantenimiento.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/mantenimiento.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/notificaciones.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/notificaciones.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/pagos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/pagos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorRegistro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorRegistro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReportes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReportes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReservas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorRoles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorRoles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorSanciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorSanciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorTarifas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorTarifas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorTarjetas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorTarjetas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/css/principal.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/gestionPlazas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazasAparcamiento.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/registro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/registro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reportes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reportes.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reservas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reservas.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/roles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/roles.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/sanciones.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/sanciones.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/tarifas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/tarifas.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/tarjetas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/tarjetas.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/usuarios.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/usuarios.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,7 +134,8 @@
       <workItem from="1716511412140" duration="74000" />
       <workItem from="1716560014181" duration="18873000" />
       <workItem from="1716641768010" duration="5302000" />
-      <workItem from="1716685320540" duration="1650000" />
+      <workItem from="1716685320540" duration="1965000" />
+      <workItem from="1716724213928" duration="30550000" />
     </task>
     <task id="LOCAL-00001" summary="ParkPlateSystem con estructura completa (24/05/2024 2:28)">
       <option name="closed" value="true" />
@@ -177,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716511190011</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ParkPlateSystem actualización (26/05/2024 3:33)">
+      <option name="closed" value="true" />
+      <created>1716687263902</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1716687263902</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +161,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ParkPlateSystem con estructura completa (24/05/2024 2:28)" />
-    <option name="LAST_COMMIT_MESSAGE" value="ParkPlateSystem con estructura completa (24/05/2024 2:28)" />
+    <MESSAGE value="ParkPlateSystem actualización (26/05/2024 3:33)" />
+    <option name="LAST_COMMIT_MESSAGE" value="ParkPlateSystem actualización (26/05/2024 3:33)" />
   </component>
 </project>

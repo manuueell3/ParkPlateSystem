@@ -1,5 +1,8 @@
 package com.tfg.parkplatesystem.controller;
 
+import com.tfg.parkplatesystem.model.Usuario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import com.tfg.parkplatesystem.model.Usuario;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ControladorUsuarios {
 
@@ -23,6 +29,9 @@ public class ControladorUsuarios {
     private TableColumn<Usuario, String> nombreColumn;
 
     @FXML
+    private TableColumn<Usuario, String> apellidosColumn;
+
+    @FXML
     private TableColumn<Usuario, String> correoColumn;
 
     @FXML
@@ -32,26 +41,72 @@ public class ControladorUsuarios {
     private TextField nombreTextField;
 
     @FXML
+    private TextField apellidosTextField;
+
+    @FXML
     private TextField correoTextField;
 
     @FXML
     private TextField rolTextField;
 
+    private Usuario usuario;
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @FXML
+    public void initialize() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        apellidosColumn.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+        correoColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        rolColumn.setCellValueFactory(new PropertyValueFactory<>("rol"));
+
+        cargarUsuarios();
+    }
+
+    private void cargarUsuarios() {
+        List<Usuario> usuarios = Usuario.obtenerTodos();
+        ObservableList<Usuario> usuariosObservableList = FXCollections.observableArrayList(usuarios);
+        usuariosTable.setItems(usuariosObservableList);
+    }
+
     @FXML
     public void handleAddUsuario(ActionEvent event) {
-        // Lógica para añadir un nuevo usuario
+        Usuario nuevoUsuario = new Usuario(
+                null,
+                nombreTextField.getText(),
+                apellidosTextField.getText(),
+                correoTextField.getText(),
+                "1234", // Establece una contraseña predeterminada
+                rolTextField.getText(),
+                "2024-01-01" // Establece una fecha de alta predeterminada
+        );
+        nuevoUsuario.guardar();
+        cargarUsuarios();
     }
 
     @FXML
     public void handleDeleteUsuario(ActionEvent event) {
-        // Lógica para eliminar un usuario seleccionado
+        Usuario usuarioSeleccionado = usuariosTable.getSelectionModel().getSelectedItem();
+        if (usuarioSeleccionado != null) {
+            usuarioSeleccionado.eliminar();
+            cargarUsuarios();
+        }
     }
 
     @FXML
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) usuariosTable.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/tfg/parkplatesystem/fxml/principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+            Parent root = loader.load();
+
+            // Pasa el usuario al controlador de la vista principal
+            ControladorPrincipal controladorPrincipal = loader.getController();
+            controladorPrincipal.setUsuario(usuario);
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Park Plate System - Principal");
