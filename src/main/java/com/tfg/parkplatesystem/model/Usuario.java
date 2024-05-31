@@ -112,7 +112,7 @@ public class Usuario {
     }
 
     // Método para guardar un usuario
-    public void guardar() {
+    public void guardar() throws SQLException {
         String sql = "INSERT INTO Usuarios (nombre, apellidos, email, contraseña, rol, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -124,13 +124,11 @@ public class Usuario {
             stmt.setString(5, this.rol);
             stmt.setString(6, this.fechaAlta);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Método para actualizar un usuario
-    public void actualizar() {
+    public void actualizar() throws SQLException {
         String sql = "UPDATE Usuarios SET nombre = ?, apellidos = ?, email = ?, contraseña = ?, rol = ?, fecha_alta = ? WHERE id_usuario = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -143,21 +141,17 @@ public class Usuario {
             stmt.setString(6, this.fechaAlta);
             stmt.setLong(7, this.idUsuario);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Método para eliminar un usuario
-    public void eliminar() {
+    public void eliminar() throws SQLException {
         String sql = "DELETE FROM Usuarios WHERE id_usuario = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

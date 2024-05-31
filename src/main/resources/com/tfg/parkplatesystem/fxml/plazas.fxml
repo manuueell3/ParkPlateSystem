@@ -11,15 +11,15 @@
 
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tfg.parkplatesystem.controller.ControladorPlazasAparcamiento" spacing="10" alignment="CENTER">
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorPlazasAparcamiento" spacing="10" alignment="CENTER" styleClass="vbox">
     <children>
         <Label text="Gestión de Plazas de Aparcamiento" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
         <TableView fx:id="plazasTable">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID"/>
-                <TableColumn fx:id="ubicacionColumn" text="Ubicación"/>
-                <TableColumn fx:id="estadoColumn" text="Estado"/>
+                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
+                <TableColumn fx:id="ubicacionColumn" style="-fx-background-color: #7DDD6B;" text="Ubicación"/>
+                <TableColumn fx:id="estadoColumn" style="-fx-background-color: #7DDD6B;" text="Estado"/>
             </columns>
         </TableView>
 
@@ -27,16 +27,16 @@
             <children>
                 <TextField fx:id="ubicacionTextField" promptText="Ubicación"/>
                 <Button text="Añadir Plaza" onAction="#handleAddPlaza"/>
-                <Button text="Eliminar Plaza" onAction="#handleDeletePlaza"/>
+                <Button text="Eliminar Plaza" onAction="#handleDeletePlaza" styleClass="boton-eliminar"/>
             </children>
         </HBox>
 
-        <Button text="Volver al Menú Principal" onAction="#handleBackButton"/>
+        <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
     </children>
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
     <stylesheets>
-        <URL value="@../css/estilos.css"/>
+        <URL value="@../css/estilosGenerales.css"/>
     </stylesheets>
 </VBox>

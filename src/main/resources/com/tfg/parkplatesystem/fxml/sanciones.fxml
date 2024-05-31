@@ -11,17 +11,17 @@
 
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tfg.parkplatesystem.controller.ControladorSanciones" spacing="10" alignment="CENTER">
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorSanciones" spacing="10" alignment="CENTER" styleClass="vbox">
     <children>
         <Label text="Gestión de Sanciones" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
         <TableView fx:id="sancionesTable">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID"/>
-                <TableColumn fx:id="usuarioColumn" text="Usuario"/>
-                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
-                <TableColumn fx:id="montoColumn" text="Monto"/>
-                <TableColumn fx:id="fechaColumn" text="Fecha"/>
+                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
+                <TableColumn fx:id="usuarioColumn" style="-fx-background-color: #7DDD6B;" text="Usuario"/>
+                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción"/>
+                <TableColumn fx:id="montoColumn" style="-fx-background-color: #7DDD6B;" text="Monto"/>
+                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha"/>
             </columns>
         </TableView>
 
@@ -32,16 +32,16 @@
                 <TextField fx:id="montoTextField" promptText="Monto"/>
                 <TextField fx:id="fechaTextField" promptText="Fecha"/>
                 <Button text="Añadir Sanción" onAction="#handleAddSancion"/>
-                <Button text="Eliminar Sanción" onAction="#handleDeleteSancion"/>
+                <Button text="Eliminar Sanción" onAction="#handleDeleteSancion" styleClass="boton-eliminar"/>
             </children>
         </HBox>
 
-        <Button text="Volver al Menú Principal" onAction="#handleBackButton"/>
+        <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
     </children>
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
     <stylesheets>
-        <URL value="@../css/estilos.css"/>
+        <URL value="@../css/estilosGenerales.css"/>
     </stylesheets>
 </VBox>

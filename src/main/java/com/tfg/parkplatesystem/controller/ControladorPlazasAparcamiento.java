@@ -13,7 +13,6 @@ import com.tfg.parkplatesystem.model.PlazaAparcamiento;
 import com.tfg.parkplatesystem.model.Usuario;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class ControladorPlazasAparcamiento {
 
@@ -56,9 +55,9 @@ public class ControladorPlazasAparcamiento {
             Stage stage = (Stage) plazasTable.getScene().getWindow();
             FXMLLoader loader;
             if (usuario.esAdministrador()) {
-                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
             } else {
-                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             }
             Parent root = loader.load();
 

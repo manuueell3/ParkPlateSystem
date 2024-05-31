@@ -130,7 +130,7 @@ public class ControladorPrincipal {
 
     @FXML
     public void handleGestionPlazasAparcamientoButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/plazasAparcamiento.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento");
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/plazas.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento");
     }
 
     @FXML

@@ -8,7 +8,7 @@
 }
 
 .button {
-    -fx-background-color: #5a9579; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
+    -fx-background-color: #ffffff; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
     -fx-text-fill: #000000; /* Color de texto negro para contraste */
     -fx-font-weight: bold; /* Negrita para resaltar los botones */
     -fx-border-color: #000000; /* Borde negro para combinar con el estilo de la página */
@@ -74,11 +74,8 @@
     -fx-font-weight: bold; /* Negrita para el texto del encabezado de las ventanas emergentes */
 }
 
-.boton-eliminar {
-    -fx-background-color: #d33c46; /* Rojo por defecto */
-    -fx-text-fill: #000000; /* Texto blanco */
+.vbox {
+    -fx-background-color:  #5A9579FF; /* Un color naranja que combina con el logo de Chinook Music */
 }
 
-.boton-eliminar:hover {
-    -fx-background-color: #ff0012; /* Rojo más oscuro cuando se pasa el ratón por encima */
-}
+

@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import com.tfg.parkplatesystem.model.Reserva;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class ControladorReservas {
 
@@ -65,9 +64,9 @@ public class ControladorReservas {
             Stage stage = (Stage) reservasTable.getScene().getWindow();
             FXMLLoader loader;
             if (usuario.esAdministrador()) {
-                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
             } else {
-                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             }
             Parent root = loader.load();
 

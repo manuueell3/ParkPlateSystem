@@ -66,7 +66,7 @@ public class ControladorEntradasSalidas {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) entradasSalidasTable.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             Parent root = loader.load();
 
             // Pasa el usuario al controlador de la vista principal

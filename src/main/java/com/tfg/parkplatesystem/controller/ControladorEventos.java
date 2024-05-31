@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.tfg.parkplatesystem.model.Evento;
 
-import java.util.Objects;
-
 public class ControladorEventos {
 
     @FXML
@@ -62,7 +60,7 @@ public class ControladorEventos {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) eventosTable.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             Parent root = loader.load();
 
             // Pasa el usuario al controlador de la vista principal

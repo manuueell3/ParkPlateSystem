@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import com.tfg.parkplatesystem.model.Pago;
 import com.tfg.parkplatesystem.model.Usuario;
 
-import java.util.Objects;
-
 public class ControladorPagos {
 
     @FXML
@@ -37,7 +35,7 @@ public class ControladorPagos {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) pagosTable.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalUsuario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             Parent root = loader.load();
 
             // Pasa el usuario al controlador de la vista principal

@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.io.IOException;
 
 public class ControladorAutenticacion {
 
@@ -55,9 +55,9 @@ public class ControladorAutenticacion {
         FXMLLoader loader;
 
         if (usuario.esAdministrador()) {
-            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/VentanaPrincipalAdministrador.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
         } else {
-            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/VentanaPrincipalUsuario.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
         }
 
         Parent root = loader.load();
@@ -75,5 +75,26 @@ public class ControladorAutenticacion {
     public void accionCancelarBoton(ActionEvent actionEvent) {
         Stage stage = (Stage) cancelarBoton.getScene().getWindow();
         stage.close();
+    }
+
+    public void accionRegistrarseBoton(ActionEvent actionEvent) {
+        try {
+            // Cargar el archivo FXML de la ventana de registro de usuarios
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/RegistroUsuarios.fxml"));
+            Parent root = loader.load();
+
+            // Crear una nueva escena con la ventana de registro de usuarios
+            Scene scene = new Scene(root);
+
+            // Obtener el escenario actual (ventana)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Establecer la nueva escena en el escenario
+            stage.setScene(scene);
+            stage.setTitle("Registro de usuarios");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

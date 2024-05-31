@@ -11,16 +11,16 @@
 
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tfg.parkplatesystem.controller.ControladorTarjetas" spacing="10" alignment="CENTER">
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorTarjetas" spacing="10" alignment="CENTER" styleClass="vbox">
     <children>
         <Label text="Gestión de Tarjetas" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
         <TableView fx:id="tarjetasTable">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID"/>
-                <TableColumn fx:id="usuarioColumn" text="Usuario"/>
-                <TableColumn fx:id="numeroColumn" text="Número"/>
-                <TableColumn fx:id="fechaExpiracionColumn" text="Fecha de Expiración"/>
+                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
+                <TableColumn fx:id="usuarioColumn" style="-fx-background-color: #7DDD6B;" text="Usuario"/>
+                <TableColumn fx:id="numeroColumn" style="-fx-background-color: #7DDD6B;" text="Número"/>
+                <TableColumn fx:id="fechaExpiracionColumn" style="-fx-background-color: #7DDD6B;" text="Fecha de Expiración"/>
             </columns>
         </TableView>
 
@@ -30,16 +30,16 @@
                 <TextField fx:id="numeroTextField" promptText="Número"/>
                 <TextField fx:id="fechaExpiracionTextField" promptText="Fecha de Expiración"/>
                 <Button text="Añadir Tarjeta" onAction="#handleAddTarjeta"/>
-                <Button text="Eliminar Tarjeta" onAction="#handleDeleteTarjeta"/>
+                <Button text="Eliminar Tarjeta" onAction="#handleDeleteTarjeta" styleClass="boton-eliminar"/>
             </children>
         </HBox>
 
-        <Button text="Volver al Menú Principal" onAction="#handleBackButton"/>
+        <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
     </children>
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
     <stylesheets>
-        <URL value="@../css/estilos.css"/>
+        <URL value="@../css/estilosGenerales.css"/>
     </stylesheets>
 </VBox>

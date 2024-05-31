@@ -24,7 +24,7 @@
         </HBox>
     </top>
     <stylesheets>
-        <URL value="@../css/ventanaPrincipalUsuario.css" />
+        <URL value="@../css/principalUsuario.css" />
     </stylesheets>
     <left>
         <AnchorPane prefHeight="407.0" prefWidth="224.0">

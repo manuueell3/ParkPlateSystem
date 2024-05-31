@@ -11,15 +11,15 @@
 
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tfg.parkplatesystem.controller.ControladorRoles" spacing="10" alignment="CENTER">
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorRoles" spacing="10" alignment="CENTER" styleClass="vbox">
     <children>
         <Label text="Gestión de Roles" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
         <TableView fx:id="rolesTable">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID"/>
-                <TableColumn fx:id="nombreColumn" text="Nombre"/>
-                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
+                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
+                <TableColumn fx:id="nombreColumn" style="-fx-background-color: #7DDD6B;" text="Nombre"/>
+                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción"/>
             </columns>
         </TableView>
 
@@ -28,16 +28,16 @@
                 <TextField fx:id="nombreTextField" promptText="Nombre"/>
                 <TextField fx:id="descripcionTextField" promptText="Descripción"/>
                 <Button text="Añadir Rol" onAction="#handleAddRol"/>
-                <Button text="Eliminar Rol" onAction="#handleDeleteRol"/>
+                <Button text="Eliminar Rol" onAction="#handleDeleteRol" styleClass="boton-eliminar"/>
             </children>
         </HBox>
 
-        <Button text="Volver al Menú Principal" onAction="#handleBackButton"/>
+        <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
     </children>
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
     <stylesheets>
-        <URL value="@../css/estilos.css"/>
+        <URL value="@../css/estilosGenerales.css"/>
     </stylesheets>
 </VBox>

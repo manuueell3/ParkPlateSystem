@@ -60,7 +60,7 @@ public class ControladorMantenimiento {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) mantenimientoTable.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
             Parent root = loader.load();
 
             // Pasa el usuario al controlador de la vista principal

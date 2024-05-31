@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.tfg.parkplatesystem.model.Rol;
 
-import java.util.Objects;
-
 public class ControladorRoles {
 
     @FXML
@@ -56,7 +54,7 @@ public class ControladorRoles {
     public void handleBackButton(ActionEvent event) {
         try {
             Stage stage = (Stage) rolesTable.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/ventanaPrincipalAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
             Parent root = loader.load();
 
             // Pasa el usuario al controlador de la vista principal

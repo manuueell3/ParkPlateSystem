@@ -78,7 +78,7 @@ public class Mantenimiento {
     // Método para obtener todos los mantenimientos
     public static List<Mantenimiento> obtenerTodos() {
         List<Mantenimiento> mantenimientos = new ArrayList<>();
-        String sql = "SELECT * FROM HistorialMantenimientos";
+        String sql = "SELECT * FROM Mantenimientos";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -102,7 +102,7 @@ public class Mantenimiento {
 
     // Método para guardar un mantenimiento
     public void guardar() {
-        String sql = "INSERT INTO HistorialMantenimientos (id_plaza, descripción, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Mantenimientos (id_plaza, descripción, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -119,7 +119,7 @@ public class Mantenimiento {
 
     // Método para actualizar un mantenimiento
     public void actualizar() {
-        String sql = "UPDATE HistorialMantenimientos SET id_plaza = ?, descripción = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
+        String sql = "UPDATE Mantenimientos SET id_plaza = ?, descripción = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -137,7 +137,7 @@ public class Mantenimiento {
 
     // Método para eliminar un mantenimiento
     public void eliminar() {
-        String sql = "DELETE FROM HistorialMantenimientos WHERE id_mantenimiento = ?";
+        String sql = "DELETE FROM Mantenimientos WHERE id_mantenimiento = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
