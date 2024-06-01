@@ -15,12 +15,19 @@
     <children>
         <Label text="Gestión de Mantenimiento" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Label text="Buscar:"/>
+                <TextField fx:id="txtBuscar" promptText="Buscar..."/>
+            </children>
+        </HBox>
+
         <TableView fx:id="mantenimientoTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción"/>
-                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha"/>
-                <TableColumn fx:id="estadoColumn" style="-fx-background-color: #7DDD6B;" text="Estado"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
+                <TableColumn fx:id="fechaColumn" text="Fecha"/>
+                <TableColumn fx:id="estadoColumn" text="Estado"/>
             </columns>
         </TableView>
 
@@ -30,6 +37,7 @@
                 <TextField fx:id="fechaTextField" promptText="Fecha"/>
                 <TextField fx:id="estadoTextField" promptText="Estado"/>
                 <Button text="Añadir Mantenimiento" onAction="#handleAddMantenimiento"/>
+                <Button text="Modificar Mantenimiento" onAction="#handleUpdateMantenimiento"/>
                 <Button text="Eliminar Mantenimiento" onAction="#handleDeleteMantenimiento" styleClass="boton-eliminar"/>
             </children>
         </HBox>

@@ -17,10 +17,10 @@
 
         <TableView fx:id="reservasTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="usuarioColumn" style="-fx-background-color: #7DDD6B;" text="Usuario"/>
-                <TableColumn fx:id="plazaColumn" style="-fx-background-color: #7DDD6B;" text="Plaza"/>
-                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="usuarioColumn" text="Usuario"/>
+                <TableColumn fx:id="plazaColumn" text="Plaza"/>
+                <TableColumn fx:id="fechaColumn" text="Fecha"/>
             </columns>
         </TableView>
 

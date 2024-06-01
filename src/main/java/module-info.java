@@ -13,6 +13,8 @@ module com.tfg.parkplatesystem {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires mysql.connector.java;
+    requires kernel;
+    requires layout;
 
     opens com.tfg.parkplatesystem.controller to javafx.fxml;
     opens com.tfg.parkplatesystem.model to javafx.base;

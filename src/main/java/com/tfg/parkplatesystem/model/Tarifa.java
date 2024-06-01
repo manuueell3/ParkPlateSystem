@@ -15,6 +15,7 @@ public class Tarifa {
     private Double montoPorHora;
     private Double montoPorDia;
 
+    // Constructor
     public Tarifa(Long idTarifa, String descripcion, Double montoPorHora, Double montoPorDia) {
         this.idTarifa = idTarifa;
         this.descripcion = descripcion;
@@ -22,7 +23,7 @@ public class Tarifa {
         this.montoPorDia = montoPorDia;
     }
 
-    // Getters y setters
+    // Getters y setters...
     public Long getIdTarifa() {
         return idTarifa;
     }
@@ -56,9 +57,9 @@ public class Tarifa {
     }
 
     // Método para obtener todas las tarifas
-    public static List<Tarifa> obtenerTodas() {
+    public static List<Tarifa> obtenerTodasLasTarifas() {
         List<Tarifa> tarifas = new ArrayList<>();
-        String sql = "SELECT * FROM Tarificaciones";
+        String sql = "SELECT * FROM Tarifas";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -66,9 +67,9 @@ public class Tarifa {
             while (rs.next()) {
                 Tarifa tarifa = new Tarifa(
                         rs.getLong("id_tarifa"),
-                        rs.getString("descripción"),
+                        rs.getString("descripcion"),
                         rs.getDouble("monto_por_hora"),
-                        rs.getDouble("monto_por_día")
+                        rs.getDouble("monto_por_dia")
                 );
                 tarifas.add(tarifa);
             }
@@ -78,9 +79,9 @@ public class Tarifa {
         return tarifas;
     }
 
-    // Método para guardar una tarifa
-    public void guardar() {
-        String sql = "INSERT INTO Tarificaciones (descripción, monto_por_hora, monto_por_día) VALUES (?, ?, ?)";
+    // Método para guardar una nueva tarifa
+    public void guardar() throws SQLException {
+        String sql = "INSERT INTO Tarifas (descripcion, monto_por_hora, monto_por_dia) VALUES (?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -88,14 +89,12 @@ public class Tarifa {
             stmt.setDouble(2, this.montoPorHora);
             stmt.setDouble(3, this.montoPorDia);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    // Método para actualizar una tarifa
-    public void actualizar() {
-        String sql = "UPDATE Tarificaciones SET descripción = ?, monto_por_hora = ?, monto_por_día = ? WHERE id_tarifa = ?";
+    // Método para actualizar una tarifa existente
+    public void actualizar() throws SQLException {
+        String sql = "UPDATE Tarifas SET descripcion = ?, monto_por_hora = ?, monto_por_dia = ? WHERE id_tarifa = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -104,21 +103,17 @@ public class Tarifa {
             stmt.setDouble(3, this.montoPorDia);
             stmt.setLong(4, this.idTarifa);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Método para eliminar una tarifa
-    public void eliminar() {
-        String sql = "DELETE FROM Tarificaciones WHERE id_tarifa = ?";
+    public void eliminar() throws SQLException {
+        String sql = "DELETE FROM Tarifas WHERE id_tarifa = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idTarifa);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }

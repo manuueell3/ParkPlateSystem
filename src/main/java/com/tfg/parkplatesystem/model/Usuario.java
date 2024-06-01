@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.tfg.parkplatesystem.util.UtilMysql;
@@ -142,6 +143,59 @@ public class Usuario {
             stmt.setLong(7, this.idUsuario);
             stmt.executeUpdate();
         }
+    }
+
+    // Método para actualizar el rol de un usuario y registrar el cambio
+    public void actualizarRol(String nuevoRol) throws SQLException {
+        String rolAnterior = this.rol;
+        this.rol = nuevoRol;
+        actualizar();
+
+        // Registrar el cambio de rol
+        registrarCambioRol(rolAnterior, nuevoRol);
+    }
+
+    // Método para registrar el cambio de rol en el historial
+    private void registrarCambioRol(String rolAnterior, String rolNuevo) {
+        RolHistorial cambio = new RolHistorial(this.idUsuario, this.nombre, rolAnterior, rolNuevo, LocalDateTime.now());
+
+        String sql = "INSERT INTO RolHistorial (id_usuario, nombre_usuario, rol_anterior, rol_nuevo, fecha_cambio) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = UtilMysql.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, this.idUsuario);
+            stmt.setString(2, this.nombre);
+            stmt.setString(3, rolAnterior);
+            stmt.setString(4, rolNuevo);
+            stmt.setObject(5, LocalDateTime.now());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para obtener el historial de cambios de rol
+    public List<RolHistorial> obtenerHistorialRoles() {
+        List<RolHistorial> historial = new ArrayList<>();
+        String sql = "SELECT * FROM RolHistorial WHERE id_usuario = ?";
+        try (Connection conn = UtilMysql.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, this.idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RolHistorial cambio = new RolHistorial(
+                            rs.getLong("id_usuario"),
+                            rs.getString("nombre_usuario"),
+                            rs.getString("rol_anterior"),
+                            rs.getString("rol_nuevo"),
+                            rs.getObject("fecha_cambio", LocalDateTime.class)
+                    );
+                    historial.add(cambio);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return historial;
     }
 
     // Método para eliminar un usuario

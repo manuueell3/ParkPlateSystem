@@ -1,5 +1,6 @@
 package com.tfg.parkplatesystem.model;
 
+import javafx.beans.property.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,141 +11,152 @@ import com.tfg.parkplatesystem.util.UtilMysql;
 
 public class Mantenimiento {
 
-    private Long idMantenimiento;
-    private Long idPlaza;
-    private String descripcion;
-    private String fechaInicio;
-    private String fechaFin;
-    private String estado;
+    private LongProperty idMantenimiento;
+    private LongProperty idPlaza;
+    private StringProperty descripcion;
+    private StringProperty fechaInicio;
+    private StringProperty fechaFin;
+    private StringProperty estado;
 
-    public Mantenimiento(Long idMantenimiento, Long idPlaza, String descripcion, String fechaInicio, String fechaFin, String estado) {
-        this.idMantenimiento = idMantenimiento;
-        this.idPlaza = idPlaza;
-        this.descripcion = descripcion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.estado = estado;
+    public Mantenimiento(Long idPlaza, String descripcion, String fechaInicio, String fechaFin, String estado) {
+        this.idMantenimiento = new SimpleLongProperty();
+        this.idPlaza = new SimpleLongProperty(idPlaza);
+        this.descripcion = new SimpleStringProperty(descripcion);
+        this.fechaInicio = new SimpleStringProperty(fechaInicio);
+        this.fechaFin = new SimpleStringProperty(fechaFin);
+        this.estado = new SimpleStringProperty(estado);
     }
 
-    // Getters y setters
-    public Long getIdMantenimiento() {
+    public long getIdMantenimiento() {
+        return idMantenimiento.get();
+    }
+
+    public LongProperty idMantenimientoProperty() {
         return idMantenimiento;
     }
 
-    public void setIdMantenimiento(Long idMantenimiento) {
-        this.idMantenimiento = idMantenimiento;
+    public void setIdMantenimiento(long idMantenimiento) {
+        this.idMantenimiento.set(idMantenimiento);
     }
 
-    public Long getIdPlaza() {
+    public long getIdPlaza() {
+        return idPlaza.get();
+    }
+
+    public LongProperty idPlazaProperty() {
         return idPlaza;
     }
 
-    public void setIdPlaza(Long idPlaza) {
-        this.idPlaza = idPlaza;
+    public void setIdPlaza(long idPlaza) {
+        this.idPlaza.set(idPlaza);
     }
 
     public String getDescripcion() {
+        return descripcion.get();
+    }
+
+    public StringProperty descripcionProperty() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion.set(descripcion);
     }
 
     public String getFechaInicio() {
+        return fechaInicio.get();
+    }
+
+    public StringProperty fechaInicioProperty() {
         return fechaInicio;
     }
 
     public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+        this.fechaInicio.set(fechaInicio);
     }
 
     public String getFechaFin() {
+        return fechaFin.get();
+    }
+
+    public StringProperty fechaFinProperty() {
         return fechaFin;
     }
 
     public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
+        this.fechaFin.set(fechaFin);
     }
 
     public String getEstado() {
+        return estado.get();
+    }
+
+    public StringProperty estadoProperty() {
         return estado;
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado.set(estado);
     }
 
-    // Método para obtener todos los mantenimientos
-    public static List<Mantenimiento> obtenerTodos() {
+    public static List<Mantenimiento> obtenerTodos() throws SQLException {
         List<Mantenimiento> mantenimientos = new ArrayList<>();
-        String sql = "SELECT * FROM Mantenimientos";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Mantenimiento mantenimiento = new Mantenimiento(
-                        rs.getLong("id_mantenimiento"),
-                        rs.getLong("id_plaza"),
-                        rs.getString("descripción"),
-                        rs.getString("fecha_inicio"),
-                        rs.getString("fecha_fin"),
-                        rs.getString("estado")
-                );
-                mantenimientos.add(mantenimiento);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Connection connection = UtilMysql.getConnection();
+        String query = "SELECT * FROM Mantenimientos";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Mantenimiento mantenimiento = new Mantenimiento(
+                    resultSet.getLong("id_plaza"),
+                    resultSet.getString("descripción"),
+                    resultSet.getString("fecha_inicio"),
+                    resultSet.getString("fecha_fin"),
+                    resultSet.getString("estado")
+            );
+            mantenimiento.setIdMantenimiento(resultSet.getLong("id_mantenimiento"));
+            mantenimientos.add(mantenimiento);
         }
+        connection.close();
         return mantenimientos;
     }
 
-    // Método para guardar un mantenimiento
-    public void guardar() {
-        String sql = "INSERT INTO Mantenimientos (id_plaza, descripción, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setLong(1, this.idPlaza);
-            stmt.setString(2, this.descripcion);
-            stmt.setString(3, this.fechaInicio);
-            stmt.setString(4, this.fechaFin);
-            stmt.setString(5, this.estado);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void guardar() throws SQLException {
+        Connection connection = UtilMysql.getConnection();
+        String query = "INSERT INTO Mantenimientos (id_plaza, descripción, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+        statement.setLong(1, this.getIdPlaza());
+        statement.setString(2, this.getDescripcion());
+        statement.setString(3, this.getFechaInicio());
+        statement.setString(4, this.getFechaFin());
+        statement.setString(5, this.getEstado());
+        statement.executeUpdate();
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            this.setIdMantenimiento(generatedKeys.getLong(1));
         }
+        connection.close();
     }
 
-    // Método para actualizar un mantenimiento
-    public void actualizar() {
-        String sql = "UPDATE Mantenimientos SET id_plaza = ?, descripción = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setLong(1, this.idPlaza);
-            stmt.setString(2, this.descripcion);
-            stmt.setString(3, this.fechaInicio);
-            stmt.setString(4, this.fechaFin);
-            stmt.setString(5, this.estado);
-            stmt.setLong(6, this.idMantenimiento);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void actualizar() throws SQLException {
+        Connection connection = UtilMysql.getConnection();
+        String query = "UPDATE Mantenimientos SET id_plaza = ?, descripción = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setLong(1, this.getIdPlaza());
+        statement.setString(2, this.getDescripcion());
+        statement.setString(3, this.getFechaInicio());
+        statement.setString(4, this.getFechaFin());
+        statement.setString(5, this.getEstado());
+        statement.setLong(6, this.getIdMantenimiento());
+        statement.executeUpdate();
+        connection.close();
     }
 
-    // Método para eliminar un mantenimiento
-    public void eliminar() {
-        String sql = "DELETE FROM Mantenimientos WHERE id_mantenimiento = ?";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setLong(1, this.idMantenimiento);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void eliminar() throws SQLException {
+        Connection connection = UtilMysql.getConnection();
+        String query = "DELETE FROM Mantenimientos WHERE id_mantenimiento = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setLong(1, this.getIdMantenimiento());
+        statement.executeUpdate();
+        connection.close();
     }
 }

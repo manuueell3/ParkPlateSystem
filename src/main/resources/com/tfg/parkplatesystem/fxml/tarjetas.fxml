@@ -17,10 +17,10 @@
 
         <TableView fx:id="tarjetasTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="usuarioColumn" style="-fx-background-color: #7DDD6B;" text="Usuario"/>
-                <TableColumn fx:id="numeroColumn" style="-fx-background-color: #7DDD6B;" text="Número"/>
-                <TableColumn fx:id="fechaExpiracionColumn" style="-fx-background-color: #7DDD6B;" text="Fecha de Expiración"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="usuarioColumn" text="Usuario"/>
+                <TableColumn fx:id="numeroColumn" text="Número"/>
+                <TableColumn fx:id="fechaExpiracionColumn" text="Fecha de Expiración"/>
             </columns>
         </TableView>
 

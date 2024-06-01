@@ -1,81 +1,105 @@
 .root {
-    -fx-font-family: 'Arial'; /* Utiliza Arial, o reemplázalo por la fuente que prefieras */
+    -fx-font-family: 'Arial';
 }
 
 .label {
-    -fx-text-fill: #000000; /* Color de texto negro para contraste */
-    -fx-font-weight: bold; /* Texto en negrita para resaltar */
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
 }
 
 .button {
-    -fx-background-color: #ffffff; /* Color de fondo naranja-rojizo ajustado al tema de la imagen */
-    -fx-text-fill: #000000; /* Color de texto negro para contraste */
-    -fx-font-weight: bold; /* Negrita para resaltar los botones */
-    -fx-border-color: #000000; /* Borde negro para combinar con el estilo de la página */
-    -fx-border-width: 2; /* Ancho de borde de 2px para definición */
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
 }
 
 .button:hover {
-    -fx-background-color: #35d98e; /* Color naranja más claro para efecto hover */
-    -fx-cursor: hand; /* Cambia el cursor a una mano para indicar interactividad */
+    -fx-background-color: #35d98e;
+    -fx-cursor: hand;
 }
 
 .text-field {
-    -fx-background-color: #ffffff; /* Fondo blanco para los campos de texto */
-    -fx-text-fill: #000000; /* Color de texto negro para contraste */
-    -fx-border-color: #000000; /* Borde negro para coherencia con los botones */
-    -fx-border-width: 2; /* Ancho de borde de 2px */
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
 }
 
 .text-field:focused {
-    -fx-border-color: #000000; /* Cambia el color del borde cuando el campo está enfocado */
-    -fx-border-width: 3; /* Hace el borde más grueso cuando está enfocado */
+    -fx-border-color: #000000;
+    -fx-border-width: 3;
 }
 
 .grid-pane {
-    -fx-background-color: #5a9579; /* Color de fondo naranja para el GridPane */
-    -fx-border-color: black; /* Borde negro */
-    -fx-border-width: 5px; /* Ancho de borde de 5px */
-    -fx-padding: 10px; /* Relleno de 10px */
+    -fx-background-color: #5a9579;
+    -fx-border-color: black;
+    -fx-border-width: 5px;
+    -fx-padding: 10px;
 }
 
 .list-view {
-    -fx-background-color: #ffffff; /* Fondo blanco para la lista */
-    -fx-text-fill: #000000; /* Color de texto negro para los elementos de la lista */
-    -fx-border-color: #000000; /* Borde negro */
-    -fx-border-width: 5; /* Ancho de borde de 5px */
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-border-width: 5;
 }
 
-/* Estilos para las ventanas emergentes (Dialogs) */
 .dialog-pane {
-    -fx-background-color: #f0f0f0; /* Un fondo más claro para las ventanas emergentes */
-    -fx-border-color: #5a9579; /* Borde que combina con el tema general */
-    -fx-border-width: 2px; /* Ancho de borde para las ventanas emergentes */
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #5a9579;
+    -fx-border-width: 2px;
 }
 
 .dialog-pane .button-bar .button {
-    -fx-background-color: #5a9579; /* Estilos para botones en las ventanas emergentes */
-    -fx-text-fill: #ffffff; /* Texto blanco para botones en ventanas emergentes */
-    -fx-font-weight: bold; /* Negrita para los botones en ventanas emergentes */
+    -fx-background-color: #5a9579;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 .dialog-pane .button-bar .button:hover {
-    -fx-background-color: #5a9579; /* Efecto hover para botones en ventanas emergentes */
+    -fx-background-color: #5a9579;
 }
 
 .dialog-pane .label {
-    -fx-font-size: 14px; /* Tamaño de fuente para texto en ventanas emergentes */
-    -fx-text-fill: #000000; /* Color de texto para las ventanas emergentes */
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
 }
 
 .dialog-pane .header-panel .header {
-    -fx-background-color: #5a9579; /* Fondo para el encabezado de las ventanas emergentes */
-    -fx-text-fill: #ffffff; /* Color de texto para el encabezado de las ventanas emergentes */
-    -fx-font-weight: bold; /* Negrita para el texto del encabezado de las ventanas emergentes */
+    -fx-background-color: #5a9579;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 .vbox {
-    -fx-background-color:  #5A9579FF; /* Un color naranja que combina con el logo de Chinook Music */
+    -fx-background-color:  #5A9579FF;
 }
 
+.historial-text-area {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10;
+}
 
+.chart {
+    -fx-background-color: transparent; /* Fondo transparente para los gráficos */
+}
+
+.chart-title {
+    -fx-text-fill: #000000; /* Color de texto para el título del gráfico */
+    -fx-font-weight: bold; /* Negrita para el título del gráfico */
+    -fx-font-size: 16px; /* Tamaño de fuente para el título del gráfico */
+}
+
+.axis-label {
+    -fx-text-fill: #000000; /* Color de texto para las etiquetas de los ejes */
+    -fx-font-weight: bold; /* Negrita para las etiquetas de los ejes */
+}
+
+.chart-legend-item {
+    -fx-text-fill: #000000; /* Color de texto para los elementos de la leyenda */
+}

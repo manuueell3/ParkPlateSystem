@@ -17,9 +17,9 @@
 
         <TableView fx:id="plazasTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="ubicacionColumn" style="-fx-background-color: #7DDD6B;" text="Ubicación"/>
-                <TableColumn fx:id="estadoColumn" style="-fx-background-color: #7DDD6B;" text="Estado"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="ubicacionColumn" text="Ubicación"/>
+                <TableColumn fx:id="estadoColumn" text="Estado"/>
             </columns>
         </TableView>
 

@@ -126,11 +126,15 @@ CREATE TABLE Incidencias
 
 -- Tabla 10: Roles
 
-CREATE TABLE Roles
+CREATE TABLE RolHistorial
 (
-    id_rol      INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_rol  VARCHAR(50) NOT NULL,
-    descripción TEXT
+    id_historial   INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario     INT                                 NOT NULL,
+    nombre_usuario VARCHAR(50)                         NOT NULL,
+    rol_anterior   ENUM ('administrador', 'conductor') NOT NULL,
+    rol_nuevo      ENUM ('administrador', 'conductor') NOT NULL,
+    fecha_cambio   TIMESTAMP                           NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario)
 );
 
 -- Tabla 11: Eventos
@@ -157,9 +161,9 @@ CREATE TABLE Notificaciones
     FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario)
 );
 
--- Tabla 13: Historial de Mantenimientos
+-- Tabla 13: Mantenimientos
 
-CREATE TABLE HistorialMantenimientos
+CREATE TABLE Mantenimientos
 (
     id_mantenimiento INT AUTO_INCREMENT PRIMARY KEY,
     id_plaza         INT,
@@ -170,14 +174,29 @@ CREATE TABLE HistorialMantenimientos
     FOREIGN KEY (id_plaza) REFERENCES Plazas (id_plaza)
 );
 
--- Tabla 14: Tarificaciones
+-- Tabla 14: Tarifas
 
-CREATE TABLE Tarificaciones
+CREATE TABLE Tarifas
 (
     id_tarifa      INT AUTO_INCREMENT PRIMARY KEY,
-    descripción    TEXT,
+    descripcion    TEXT,
     monto_por_hora DECIMAL(10, 2) NOT NULL,
-    monto_por_día  DECIMAL(10, 2) NOT NULL
+    monto_por_dia  DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabla 15: Historial de Tarifas
+
+CREATE TABLE HistorialTarifas
+(
+    id_historial            INT AUTO_INCREMENT PRIMARY KEY,
+    id_tarifa               INT,
+    descripcion_anterior    TEXT,
+    monto_por_hora_anterior DECIMAL(10, 2),
+    monto_por_dia_anterior  DECIMAL(10, 2),
+    descripcion_nueva       TEXT,
+    monto_por_hora_nueva    DECIMAL(10, 2),
+    monto_por_dia_nueva     DECIMAL(10, 2),
+    fecha_cambio            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabla 15: Reservas

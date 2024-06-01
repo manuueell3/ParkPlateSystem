@@ -19,10 +19,10 @@
 
         <TableView fx:id="reportesTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID" />
-                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción" />
-                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha" />
-                <TableColumn fx:id="tipoColumn" style="-fx-background-color: #7DDD6B;" text="Tipo" />
+                <TableColumn fx:id="idColumn" text="ID" />
+                <TableColumn fx:id="descripcionColumn" text="Descripción" />
+                <TableColumn fx:id="fechaColumn" text="Fecha" />
+                <TableColumn fx:id="tipoColumn" text="Tipo" />
             </columns>
         </TableView>
 

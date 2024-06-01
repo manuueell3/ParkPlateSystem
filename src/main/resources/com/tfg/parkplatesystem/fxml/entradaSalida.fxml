@@ -20,11 +20,11 @@
 
         <TableView fx:id="entradasSalidasTable" style="-fx-background-color: white;">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID" />
-                <TableColumn fx:id="vehiculoColumn" style="-fx-background-color: #7DDD6B;" text="Vehículo" />
-                <TableColumn fx:id="fechaEntradaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha Entrada" />
-                <TableColumn fx:id="fechaSalidaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha Salida" />
-                <TableColumn fx:id="estadoColumn" style="-fx-background-color: #7DDD6B;" text="Estado" />
+                <TableColumn fx:id="idColumn" text="ID" />
+                <TableColumn fx:id="vehiculoColumn" text="Vehículo" />
+                <TableColumn fx:id="fechaEntradaColumn" text="Fecha Entrada" />
+                <TableColumn fx:id="fechaSalidaColumn" text="Fecha Salida" />
+                <TableColumn fx:id="estadoColumn" text="Estado" />
             </columns>
         </TableView>
 

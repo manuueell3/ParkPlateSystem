@@ -17,10 +17,10 @@
 
         <TableView fx:id="incidenciasTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción"/>
-                <TableColumn fx:id="estadoColumn" style="-fx-background-color: #7DDD6B;" text="Estado"/>
-                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
+                <TableColumn fx:id="estadoColumn" text="Estado"/>
+                <TableColumn fx:id="fechaColumn" text="Fecha"/>
             </columns>
         </TableView>
 

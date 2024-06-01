@@ -17,11 +17,11 @@
 
         <TableView fx:id="sancionesTable">
             <columns>
-                <TableColumn fx:id="idColumn" style="-fx-background-color: #7DDD6B;" text="ID"/>
-                <TableColumn fx:id="usuarioColumn" style="-fx-background-color: #7DDD6B;" text="Usuario"/>
-                <TableColumn fx:id="descripcionColumn" style="-fx-background-color: #7DDD6B;" text="Descripción"/>
-                <TableColumn fx:id="montoColumn" style="-fx-background-color: #7DDD6B;" text="Monto"/>
-                <TableColumn fx:id="fechaColumn" style="-fx-background-color: #7DDD6B;" text="Fecha"/>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="usuarioColumn" text="Usuario"/>
+                <TableColumn fx:id="descripcionColumn" text="Descripción"/>
+                <TableColumn fx:id="montoColumn" text="Monto"/>
+                <TableColumn fx:id="fechaColumn" text="Fecha"/>
             </columns>
         </TableView>
 
