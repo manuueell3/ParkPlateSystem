@@ -8,10 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ControladorPrincipal {
@@ -30,6 +33,13 @@ public class ControladorPrincipal {
     @FXML
     private Button botonGestionMantenimiento;
     @FXML
+    private Button botonGestionPlazasAparcamiento;
+    @FXML
+    private Button botonGestionReservas;
+    @FXML
+    private Button botonCerrarSesion;
+
+    @FXML
     private Button botonGestionPagos;
     @FXML
     private Button botonGestionSanciones;
@@ -45,82 +55,61 @@ public class ControladorPrincipal {
     private Button botonGestionEntradasSalidas;
     @FXML
     private Button botonGestionRegistros;
-    @FXML
-    private Button botonGestionPlazasAparcamiento;
-    @FXML
-    private Button botonGestionReservas;
-    @FXML
-    private Button botonCerrarSesion;
 
     private Usuario usuario;
+    private boolean controlPressed = false;
+    private Map<KeyCode, Button> keyButtonMap;
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         mensajeBienvenida.setText("Bienvenido, " + usuario.getNombre() + " " + usuario.getApellidos());
+        initializeKeyButtonMap();
+    }
+
+    private void initializeKeyButtonMap() {
+        keyButtonMap = new HashMap<>();
+        // Verifica si los botones son no nulos antes de agregarlos al mapa
+        if (botonGestionUsuarios != null) keyButtonMap.put(KeyCode.U, botonGestionUsuarios);
+        if (botonGestionRoles != null) keyButtonMap.put(KeyCode.R, botonGestionRoles);
+        if (botonGestionTarifas != null) keyButtonMap.put(KeyCode.T, botonGestionTarifas);
+        if (botonGestionReportes != null) keyButtonMap.put(KeyCode.P, botonGestionReportes);
+        if (botonGestionMantenimiento != null) keyButtonMap.put(KeyCode.M, botonGestionMantenimiento);
+        if (botonGestionPlazasAparcamiento != null) keyButtonMap.put(KeyCode.A, botonGestionPlazasAparcamiento);
+        if (botonGestionReservas != null) keyButtonMap.put(KeyCode.V, botonGestionReservas);
+        if (botonCerrarSesion != null) keyButtonMap.put(KeyCode.S, botonCerrarSesion);
+
+        if (botonGestionPagos != null) keyButtonMap.put(KeyCode.G, botonGestionPagos);
+        if (botonGestionSanciones != null) keyButtonMap.put(KeyCode.Y, botonGestionSanciones);
+        if (botonGestionNotificaciones != null) keyButtonMap.put(KeyCode.N, botonGestionNotificaciones);
+        if (botonGestionEventos != null) keyButtonMap.put(KeyCode.E, botonGestionEventos);
+        if (botonGestionTarjetas != null) keyButtonMap.put(KeyCode.C, botonGestionTarjetas);
+        if (botonGestionIncidencias != null) keyButtonMap.put(KeyCode.I, botonGestionIncidencias);
+        if (botonGestionEntradasSalidas != null) keyButtonMap.put(KeyCode.O, botonGestionEntradasSalidas);
+        if (botonGestionRegistros != null) keyButtonMap.put(KeyCode.D, botonGestionRegistros);
     }
 
     @FXML
-    public void manejarPresionTeclaAdmin(KeyEvent event) {
-        switch (event.getCode()) {
-            case U:
-                handleGestionUsuariosButton(new ActionEvent());
-                break;
-            case R:
-                handleGestionRolesButton(new ActionEvent());
-                break;
-            case T:
-                handleGestionTarifasButton(new ActionEvent());
-                break;
-            case P:
-                handleGestionReportesButton(new ActionEvent());
-                break;
-            case M:
-                handleGestionMantenimientoButton(new ActionEvent());
-                break;
-            case A:
-                handleGestionPlazasAparcamientoAdminButton(new ActionEvent());
-                break;
-            case V:
-                handleGestionReservasAdminButton(new ActionEvent());
-                break;
-            // Agregar otros casos para los atajos de la ventana de administrador
+    public void manejarPresionTecla(KeyEvent event) {
+        if (event.getCode() == KeyCode.CONTROL) {
+            controlPressed = true;
+            subrayarAtajos(true);
+        } else if (controlPressed && keyButtonMap.containsKey(event.getCode())) {
+            keyButtonMap.get(event.getCode()).fire();
         }
     }
 
     @FXML
-    public void manejarPresionTeclaUsuario(KeyEvent event) {
-        switch (event.getCode()) {
-            case G:
-                handleGestionPagosButton(new ActionEvent());
-                break;
-            case S:
-                handleGestionSancionesButton(new ActionEvent());
-                break;
-            case N:
-                handleGestionNotificacionesButton(new ActionEvent());
-                break;
-            case E:
-                handleGestionEventosButton(new ActionEvent());
-                break;
-            case J:
-                handleGestionTarjetasButton(new ActionEvent());
-                break;
-            case I:
-                handleGestionIncidenciasButton(new ActionEvent());
-                break;
-            case O:
-                handleGestionEntradasSalidasButton(new ActionEvent());
-                break;
-            case D:
-                handleGestionRegistrosButton(new ActionEvent());
-                break;
-            case A:
-                handleGestionPlazasAparcamientoUsuarioButton(new ActionEvent());
-                break;
-            case V:
-                handleGestionReservasUsuarioButton(new ActionEvent());
-                break;
-            // Agregar otros casos para los atajos de la ventana de usuario
+    public void limpiarSubrayado(KeyEvent event) {
+        if (event.getCode() == KeyCode.CONTROL) {
+            controlPressed = false;
+            subrayarAtajos(false);
+        }
+    }
+
+    private void subrayarAtajos(boolean subrayar) {
+        for (Map.Entry<KeyCode, Button> entry : keyButtonMap.entrySet()) {
+            String estilo = subrayar ? "-fx-underline: true;" : "";
+            entry.getValue().setStyle(estilo);
         }
     }
 
@@ -147,6 +136,16 @@ public class ControladorPrincipal {
     @FXML
     public void handleGestionMantenimientoButton(ActionEvent event) {
         cambiarEscena("/com/tfg/parkplatesystem/fxml/mantenimiento.fxml", "Park Plate System - Gestión de Mantenimiento");
+    }
+
+    @FXML
+    public void handleGestionPlazasAparcamientoAdminButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/plazasAdmin.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento (Admin)");
+    }
+
+    @FXML
+    public void handleGestionReservasAdminButton(ActionEvent event) {
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/reservasAdmin.fxml", "Park Plate System - Gestión de Reservas (Admin)");
     }
 
     @FXML
@@ -186,22 +185,12 @@ public class ControladorPrincipal {
 
     @FXML
     public void handleGestionRegistrosButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/registro.fxml", "Park Plate System - Gestión de Registros");
-    }
-
-    @FXML
-    public void handleGestionPlazasAparcamientoAdminButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/plazasAdmin.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento (Admin)");
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/registros.fxml", "Park Plate System - Gestión de Registros");
     }
 
     @FXML
     public void handleGestionPlazasAparcamientoUsuarioButton(ActionEvent event) {
         cambiarEscena("/com/tfg/parkplatesystem/fxml/plazasUsuario.fxml", "Park Plate System - Gestión de Plazas de Aparcamiento (Usuario)");
-    }
-
-    @FXML
-    public void handleGestionReservasAdminButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/reservasAdmin.fxml", "Park Plate System - Gestión de Reservas (Admin)");
     }
 
     @FXML

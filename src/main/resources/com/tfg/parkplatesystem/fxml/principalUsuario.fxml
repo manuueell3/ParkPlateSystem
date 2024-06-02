@@ -38,7 +38,7 @@
         </AnchorPane>
     </left>
     <center>
-        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0" onKeyPressed="#manejarPresionTeclaUsuario">
+        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0" onKeyPressed="#manejarPresionTecla" onKeyReleased="#limpiarSubrayado">
             <children>
                 <Button fx:id="botonGestionPagos" mnemonicParsing="false" onAction="#handleGestionPagosButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Pagos">
                     <graphic>

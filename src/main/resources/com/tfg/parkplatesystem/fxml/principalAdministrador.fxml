@@ -38,9 +38,9 @@
         </AnchorPane>
     </left>
     <center>
-        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0" onKeyPressed="#manejarPresionTeclaAdmin">
+        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0" onKeyPressed="#manejarPresionTecla" onKeyReleased="#limpiarSubrayado">
             <children>
-                <Button fx:id="botonGestionUsuarios" mnemonicParsing="false" onAction="#handleGestionUsuariosButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Usuarios">
+                <Button fx:id="botonGestionUsuarios" mnemonicParsing="true" onAction="#handleGestionUsuariosButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="_Gestión de Usuarios">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -49,7 +49,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionRoles" mnemonicParsing="false" onAction="#handleGestionRolesButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Roles">
+                <Button fx:id="botonGestionRoles" mnemonicParsing="true" onAction="#handleGestionRolesButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de _Roles">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -58,7 +58,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionTarifas" mnemonicParsing="false" onAction="#handleGestionTarifasButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Tarifas">
+                <Button fx:id="botonGestionTarifas" mnemonicParsing="true" onAction="#handleGestionTarifasButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de _Tarifas">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -67,7 +67,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionReportes" mnemonicParsing="false" onAction="#handleGestionReportesButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Reportes">
+                <Button fx:id="botonGestionReportes" mnemonicParsing="true" onAction="#handleGestionReportesButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Re_portes">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -76,7 +76,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionMantenimiento" mnemonicParsing="false" onAction="#handleGestionMantenimientoButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Mantenimiento">
+                <Button fx:id="botonGestionMantenimiento" mnemonicParsing="true" onAction="#handleGestionMantenimientoButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de _Mantenimiento">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -85,7 +85,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionPlazasAparcamiento" mnemonicParsing="false" onAction="#handleGestionPlazasAparcamientoAdminButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Plazas">
+                <Button fx:id="botonGestionPlazasAparcamiento" mnemonicParsing="true" onAction="#handleGestionPlazasAparcamientoAdminButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de _Plazas">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -94,7 +94,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionReservas" mnemonicParsing="false" onAction="#handleGestionReservasAdminButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Reservas">
+                <Button fx:id="botonGestionReservas" mnemonicParsing="true" onAction="#handleGestionReservasAdminButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Re_servas">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -103,7 +103,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#handleCerrarSesionButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Cerrar Sesión">
+                <Button fx:id="botonCerrarSesion" mnemonicParsing="true" onAction="#handleCerrarSesionButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Cerrar _Sesión">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
