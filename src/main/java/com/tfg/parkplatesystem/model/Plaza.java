@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.tfg.parkplatesystem.util.UtilMysql;
 
-public class PlazaAparcamiento {
+public class Plaza {
 
     private Long idPlaza;
     private Integer numeroPlaza;
@@ -16,7 +16,7 @@ public class PlazaAparcamiento {
     private String fechaBloqueo;
     private String fechaAlta;
 
-    public PlazaAparcamiento(Long idPlaza, Integer numeroPlaza, String estado, String fechaBloqueo, String fechaAlta) {
+    public Plaza(Long idPlaza, Integer numeroPlaza, String estado, String fechaBloqueo, String fechaAlta) {
         this.idPlaza = idPlaza;
         this.numeroPlaza = numeroPlaza;
         this.estado = estado;
@@ -66,15 +66,15 @@ public class PlazaAparcamiento {
     }
 
     // Método para obtener todas las plazas de aparcamiento
-    public static List<PlazaAparcamiento> obtenerTodas() {
-        List<PlazaAparcamiento> plazas = new ArrayList<>();
+    public static List<Plaza> obtenerTodas() throws SQLException {
+        List<Plaza> plazas = new ArrayList<>();
         String sql = "SELECT * FROM Plazas";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                PlazaAparcamiento plaza = new PlazaAparcamiento(
+                Plaza plaza = new Plaza(
                         rs.getLong("id_plaza"),
                         rs.getInt("número_plaza"),
                         rs.getString("estado"),
@@ -83,55 +83,47 @@ public class PlazaAparcamiento {
                 );
                 plazas.add(plaza);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return plazas;
     }
 
-    // Método para guardar una plaza de aparcamiento
-    public void guardar() {
-        String sql = "INSERT INTO Plazas (número_plaza, estado, fecha_bloqueo, fecha_alta) VALUES (?, ?, ?, ?)";
+    // Método para guardar una nueva plaza
+    public void guardar() throws SQLException {
+        String sql = "INSERT INTO Plazas (número_plaza, estado, fecha_alta) VALUES (?, ?, NOW())";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, this.numeroPlaza);
             stmt.setString(2, this.estado);
-            stmt.setString(3, this.fechaBloqueo);
-            stmt.setString(4, this.fechaAlta);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    // Método para actualizar una plaza de aparcamiento
-    public void actualizar() {
-        String sql = "UPDATE Plazas SET número_plaza = ?, estado = ?, fecha_bloqueo = ?, fecha_alta = ? WHERE id_plaza = ?";
+    // Método para actualizar una plaza
+    public void actualizar() throws SQLException {
+        String sql = "UPDATE Plazas SET estado = ? WHERE id_plaza = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, this.numeroPlaza);
-            stmt.setString(2, this.estado);
-            stmt.setString(3, this.fechaBloqueo);
-            stmt.setString(4, this.fechaAlta);
-            stmt.setLong(5, this.idPlaza);
+            stmt.setString(1, this.estado);
+            stmt.setLong(2, this.idPlaza);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    // Método para eliminar una plaza de aparcamiento
-    public void eliminar() {
+    // Método para eliminar una plaza
+    public void eliminar() throws SQLException {
         String sql = "DELETE FROM Plazas WHERE id_plaza = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idPlaza);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Plaza " + numeroPlaza + " (ID: " + idPlaza + ")";
     }
 }

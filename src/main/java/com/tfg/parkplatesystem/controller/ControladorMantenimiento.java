@@ -1,6 +1,7 @@
 package com.tfg.parkplatesystem.controller;
 
 import com.tfg.parkplatesystem.model.Mantenimiento;
+import com.tfg.parkplatesystem.model.Plaza;
 import com.tfg.parkplatesystem.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ControladorMantenimiento {
@@ -31,22 +34,28 @@ public class ControladorMantenimiento {
     private TableColumn<Mantenimiento, String> descripcionColumn;
 
     @FXML
-    private TableColumn<Mantenimiento, String> fechaColumn;
+    private TableColumn<Mantenimiento, String> fechaInicioColumn;
+
+    @FXML
+    private TableColumn<Mantenimiento, String> fechaFinColumn;
 
     @FXML
     private TableColumn<Mantenimiento, String> estadoColumn;
 
     @FXML
+    private ComboBox<Plaza> plazaComboBox;
+
+    @FXML
     private TextField descripcionTextField;
 
     @FXML
-    private TextField fechaTextField;
-
-    @FXML
-    private TextField estadoTextField;
+    private ComboBox<String> estadoComboBox;
 
     @FXML
     private TextField txtBuscar;
+
+    @FXML
+    private ComboBox<String> filtroEstadoComboBox;
 
     private ObservableList<Mantenimiento> mantenimientoObservableList;
     private FilteredList<Mantenimiento> filteredData;
@@ -61,14 +70,17 @@ public class ControladorMantenimiento {
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idMantenimiento"));
         descripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio")); // Suponiendo que fechaInicio es la fecha principal
+        fechaInicioColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        fechaFinColumn.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
         estadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         cargarMantenimientos();
+        cargarPlazas();
 
         mantenimientoTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> mostrarDetallesMantenimiento(newValue));
 
         configurarBusqueda();
+        configurarFiltroEstado();
     }
 
     private void cargarMantenimientos() {
@@ -85,11 +97,28 @@ public class ControladorMantenimiento {
         }
     }
 
+    private void cargarPlazas() {
+        try {
+            List<Plaza> plazas = Plaza.obtenerTodas();
+            plazaComboBox.setItems(FXCollections.observableArrayList(plazas));
+        } catch (SQLException e) {
+            mostrarAlerta("Error en la base de datos", "No se pudieron cargar las plazas: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
     private void mostrarDetallesMantenimiento(Mantenimiento mantenimiento) {
         if (mantenimiento != null) {
+            Plaza plazaSeleccionada = null;
+            for (Plaza plaza : plazaComboBox.getItems()) {
+                if (plaza.getIdPlaza().equals(mantenimiento.getIdPlaza())) {
+                    plazaSeleccionada = plaza;
+                    break;
+                }
+            }
+            plazaComboBox.setValue(plazaSeleccionada);
             descripcionTextField.setText(mantenimiento.getDescripcion());
-            fechaTextField.setText(mantenimiento.getFechaInicio()); // Ajustar según los campos correctos
-            estadoTextField.setText(mantenimiento.getEstado());
+            estadoComboBox.setValue(mantenimiento.getEstado());
         } else {
             limpiarCampos();
         }
@@ -101,20 +130,22 @@ public class ControladorMantenimiento {
             return;
         }
         try {
-            Long idPlaza = Long.parseLong(descripcionTextField.getText()); // Suponiendo que idPlaza es el primer campo
+            Plaza plazaSeleccionada = plazaComboBox.getValue();
+            if (plazaSeleccionada == null) {
+                mostrarAlerta("Error de validación", "Debe seleccionar una Plaza.", Alert.AlertType.ERROR);
+                return;
+            }
+            Long idPlaza = plazaSeleccionada.getIdPlaza();
             String descripcion = descripcionTextField.getText();
-            String fecha = fechaTextField.getText();
-            String estado = estadoTextField.getText();
-            Mantenimiento mantenimiento = new Mantenimiento(idPlaza, descripcion, fecha, fecha, estado); // Ajusta según los campos correctos
+            String fechaInicio = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String estado = estadoComboBox.getValue();
+            Mantenimiento mantenimiento = new Mantenimiento(idPlaza, descripcion, fechaInicio, null, estado); // Ajusta según los campos correctos
             mantenimiento.guardar();
             mostrarAlerta("Registro exitoso", "Mantenimiento registrado con éxito.", Alert.AlertType.INFORMATION);
             cargarMantenimientos();
             limpiarCampos();
         } catch (SQLException e) {
             mostrarAlerta("Error en la base de datos", "No se pudo registrar el mantenimiento: " + e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Error de formato", "El ID de Plaza debe ser un número: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -130,13 +161,31 @@ public class ControladorMantenimiento {
             return;
         }
         try {
+            Plaza plazaSeleccionada = plazaComboBox.getValue();
+            if (plazaSeleccionada == null) {
+                mostrarAlerta("Error de validación", "Debe seleccionar una Plaza.", Alert.AlertType.ERROR);
+                return;
+            }
+            Long idPlaza = plazaSeleccionada.getIdPlaza();
             String descripcion = descripcionTextField.getText();
-            String fecha = fechaTextField.getText();
-            String estado = estadoTextField.getText();
+            String estado = estadoComboBox.getValue();
 
+            if (idPlaza.equals(mantenimientoSeleccionado.getIdPlaza()) &&
+                    descripcion.equals(mantenimientoSeleccionado.getDescripcion()) &&
+                    estado.equals(mantenimientoSeleccionado.getEstado())) {
+                mostrarAlerta("Sin cambios", "No se han realizado cambios en el mantenimiento.", Alert.AlertType.INFORMATION);
+                return;
+            }
+
+            mantenimientoSeleccionado.setIdPlaza(idPlaza);
             mantenimientoSeleccionado.setDescripcion(descripcion);
-            mantenimientoSeleccionado.setFechaInicio(fecha); // Ajustar según los campos correctos
             mantenimientoSeleccionado.setEstado(estado);
+            if (estado.equalsIgnoreCase("completado")) {
+                String fechaFin = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                mantenimientoSeleccionado.setFechaFin(fechaFin);
+            } else {
+                mantenimientoSeleccionado.setFechaFin(null);
+            }
             mantenimientoSeleccionado.actualizar();
 
             mostrarAlerta("Actualización exitosa", "Mantenimiento actualizado con éxito.", Alert.AlertType.INFORMATION);
@@ -179,8 +228,9 @@ public class ControladorMantenimiento {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml"));
             Parent root = loader.load();
 
-            // Asumiendo que el controlador principal necesita un usuario
+            // Pasa el usuario al controlador principal
             ControladorPrincipal controladorPrincipal = loader.getController();
+            controladorPrincipal.setUsuario(usuario);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -194,11 +244,16 @@ public class ControladorMantenimiento {
 
     private boolean validarCampos() {
         String descripcion = descripcionTextField.getText();
-        String fecha = fechaTextField.getText();
-        String estado = estadoTextField.getText();
+        String estado = estadoComboBox.getValue();
 
-        if (descripcion.isEmpty() || fecha.isEmpty() || estado.isEmpty()) {
+        if (descripcion.isEmpty() || estado == null || estado.isEmpty()) {
             mostrarAlerta("Error de entrada", "Por favor, complete todos los campos.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        // Validar estado
+        if (!estado.equalsIgnoreCase("pendiente") && !estado.equalsIgnoreCase("completado")) {
+            mostrarAlerta("Error de estado", "El estado debe ser 'pendiente' o 'completado'.", Alert.AlertType.ERROR);
             return false;
         }
 
@@ -206,9 +261,9 @@ public class ControladorMantenimiento {
     }
 
     private void limpiarCampos() {
+        plazaComboBox.setValue(null);
         descripcionTextField.clear();
-        fechaTextField.clear();
-        estadoTextField.clear();
+        estadoComboBox.setValue(null);
     }
 
     private void configurarBusqueda() {
@@ -216,29 +271,37 @@ public class ControladorMantenimiento {
             filteredData = new FilteredList<>(mantenimientoObservableList, p -> true);
         }
 
-        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(mantenimiento -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (mantenimiento.getDescripcion().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (mantenimiento.getFechaInicio().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (mantenimiento.getEstado().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
-        });
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> actualizarFiltro());
+        filtroEstadoComboBox.valueProperty().addListener((observable, oldValue, newValue) -> actualizarFiltro());
 
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(mantenimientoTable.comparatorProperty());
 
         mantenimientoTable.setItems(sortedData);
+    }
+
+    private void actualizarFiltro() {
+        filteredData.setPredicate(mantenimiento -> {
+            String estadoFiltro = filtroEstadoComboBox.getValue();
+            String textoFiltro = txtBuscar.getText().toLowerCase();
+
+            if (estadoFiltro == null || estadoFiltro.equals("Todos")) {
+                estadoFiltro = "";
+            }
+
+            boolean coincideEstado = estadoFiltro.isEmpty() || mantenimiento.getEstado().equalsIgnoreCase(estadoFiltro);
+            boolean coincideTexto = textoFiltro.isEmpty() ||
+                    mantenimiento.getDescripcion().toLowerCase().contains(textoFiltro) ||
+                    mantenimiento.getFechaInicio().toLowerCase().contains(textoFiltro) ||
+                    mantenimiento.getFechaFin() != null && mantenimiento.getFechaFin().toLowerCase().contains(textoFiltro);
+
+            return coincideEstado && coincideTexto;
+        });
+    }
+
+    private void configurarFiltroEstado() {
+        filtroEstadoComboBox.setItems(FXCollections.observableArrayList("Todos", "pendiente", "completado"));
+        filtroEstadoComboBox.setValue("Todos");
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

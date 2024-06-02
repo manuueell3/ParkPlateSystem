@@ -52,6 +52,7 @@ public class ControladorEntradasSalidas {
     @FXML
     private TextField estadoTextField;
 
+
     @FXML
     public void handleAddRegistro(ActionEvent event) {
         // Lógica para añadir un nuevo registro de entrada/salida

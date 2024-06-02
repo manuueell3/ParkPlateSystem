@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,7 +63,153 @@ public class ControladorPrincipal {
 
     @FXML
     public void initialize() {
-        // El método initialize se llamará automáticamente después de la inyección de FXML, así que puedes dejarlo vacío si no tienes inicializaciones adicionales.
+        // Escuchar cuando la escena esté completamente cargada
+        mensajeBienvenida.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        // Añadir atajos de teclado a la escena
+                        addKeyboardShortcuts(newScene);
+                    }
+                });
+            }
+        });
+    }
+
+    private void addKeyboardShortcuts(Scene scene) {
+        // Crear combinaciones de teclas
+        KeyCombination gestionUsuariosKeyCombination = new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionRolesKeyCombination = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionTarifasKeyCombination = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionReportesKeyCombination = new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionMantenimientoKeyCombination = new KeyCodeCombination(KeyCode.M, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionPagosKeyCombination = new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionSancionesKeyCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionNotificacionesKeyCombination = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionEventosKeyCombination = new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionTarjetasKeyCombination = new KeyCodeCombination(KeyCode.J, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionIncidenciasKeyCombination = new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionEntradasSalidasKeyCombination = new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionRegistrosKeyCombination = new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionPlazasAparcamientoKeyCombination = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
+        KeyCombination gestionReservasKeyCombination = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
+
+        // Añadir manejadores de eventos de teclado a la escena
+        scene.getAccelerators().put(gestionUsuariosKeyCombination, () -> {
+            handleGestionUsuariosButton(new ActionEvent());
+            underlineButtonText(botonGestionUsuarios, true);
+        });
+        scene.getAccelerators().put(gestionRolesKeyCombination, () -> {
+            handleGestionRolesButton(new ActionEvent());
+            underlineButtonText(botonGestionRoles, true);
+        });
+        scene.getAccelerators().put(gestionTarifasKeyCombination, () -> {
+            handleGestionTarifasButton(new ActionEvent());
+            underlineButtonText(botonGestionTarifas, true);
+        });
+        scene.getAccelerators().put(gestionReportesKeyCombination, () -> {
+            handleGestionReportesButton(new ActionEvent());
+            underlineButtonText(botonGestionReportes, true);
+        });
+        scene.getAccelerators().put(gestionMantenimientoKeyCombination, () -> {
+            handleGestionMantenimientoButton(new ActionEvent());
+            underlineButtonText(botonGestionMantenimiento, true);
+        });
+        scene.getAccelerators().put(gestionPagosKeyCombination, () -> {
+            handleGestionPagosButton(new ActionEvent());
+            underlineButtonText(botonGestionPagos, true);
+        });
+        scene.getAccelerators().put(gestionSancionesKeyCombination, () -> {
+            handleGestionSancionesButton(new ActionEvent());
+            underlineButtonText(botonGestionSanciones, true);
+        });
+        scene.getAccelerators().put(gestionNotificacionesKeyCombination, () -> {
+            handleGestionNotificacionesButton(new ActionEvent());
+            underlineButtonText(botonGestionNotificaciones, true);
+        });
+        scene.getAccelerators().put(gestionEventosKeyCombination, () -> {
+            handleGestionEventosButton(new ActionEvent());
+            underlineButtonText(botonGestionEventos, true);
+        });
+        scene.getAccelerators().put(gestionTarjetasKeyCombination, () -> {
+            handleGestionTarjetasButton(new ActionEvent());
+            underlineButtonText(botonGestionTarjetas, true);
+        });
+        scene.getAccelerators().put(gestionIncidenciasKeyCombination, () -> {
+            handleGestionIncidenciasButton(new ActionEvent());
+            underlineButtonText(botonGestionIncidencias, true);
+        });
+        scene.getAccelerators().put(gestionEntradasSalidasKeyCombination, () -> {
+            handleGestionEntradasSalidasButton(new ActionEvent());
+            underlineButtonText(botonGestionEntradasSalidas, true);
+        });
+        scene.getAccelerators().put(gestionRegistrosKeyCombination, () -> {
+            handleGestionRegistrosButton(new ActionEvent());
+            underlineButtonText(botonGestionRegistros, true);
+        });
+        scene.getAccelerators().put(gestionPlazasAparcamientoKeyCombination, () -> {
+            handleGestionPlazasAparcamientoButton(new ActionEvent());
+            underlineButtonText(botonGestionPlazasAparcamiento, true);
+        });
+        scene.getAccelerators().put(gestionReservasKeyCombination, () -> {
+            handleGestionReservasButton(new ActionEvent());
+            underlineButtonText(botonGestionReservas, true);
+        });
+
+        // Remover el subrayado cuando el atajo ya no esté activo (esto es opcional y puede variar según la necesidad)
+        scene.setOnKeyReleased(event -> {
+            if (!gestionUsuariosKeyCombination.match(event)) {
+                underlineButtonText(botonGestionUsuarios, false);
+            }
+            if (!gestionRolesKeyCombination.match(event)) {
+                underlineButtonText(botonGestionRoles, false);
+            }
+            if (!gestionTarifasKeyCombination.match(event)) {
+                underlineButtonText(botonGestionTarifas, false);
+            }
+            if (!gestionReportesKeyCombination.match(event)) {
+                underlineButtonText(botonGestionReportes, false);
+            }
+            if (!gestionMantenimientoKeyCombination.match(event)) {
+                underlineButtonText(botonGestionMantenimiento, false);
+            }
+            if (!gestionPagosKeyCombination.match(event)) {
+                underlineButtonText(botonGestionPagos, false);
+            }
+            if (!gestionSancionesKeyCombination.match(event)) {
+                underlineButtonText(botonGestionSanciones, false);
+            }
+            if (!gestionNotificacionesKeyCombination.match(event)) {
+                underlineButtonText(botonGestionNotificaciones, false);
+            }
+            if (!gestionEventosKeyCombination.match(event)) {
+                underlineButtonText(botonGestionEventos, false);
+            }
+            if (!gestionTarjetasKeyCombination.match(event)) {
+                underlineButtonText(botonGestionTarjetas, false);
+            }
+            if (!gestionIncidenciasKeyCombination.match(event)) {
+                underlineButtonText(botonGestionIncidencias, false);
+            }
+            if (!gestionEntradasSalidasKeyCombination.match(event)) {
+                underlineButtonText(botonGestionEntradasSalidas, false);
+            }
+            if (!gestionRegistrosKeyCombination.match(event)) {
+                underlineButtonText(botonGestionRegistros, false);
+            }
+            if (!gestionPlazasAparcamientoKeyCombination.match(event)) {
+                underlineButtonText(botonGestionPlazasAparcamiento, false);
+            }
+            if (!gestionReservasKeyCombination.match(event)) {
+                underlineButtonText(botonGestionReservas, false);
+            }
+        });
+    }
+
+    private void underlineButtonText(Button button, boolean underline) {
+        if (button != null) {
+            button.setStyle(underline ? "-fx-underline: true;" : "-fx-underline: false;");
+        }
     }
 
     @FXML
@@ -162,8 +311,8 @@ public class ControladorPrincipal {
             Object controlador = loader.getController();
             if (controlador instanceof ControladorPrincipal) {
                 ((ControladorPrincipal) controlador).setUsuario(usuario);
-            } else if (controlador instanceof ControladorPlazasAparcamiento) {
-                ((ControladorPlazasAparcamiento) controlador).setUsuario(usuario);
+            } else if (controlador instanceof ControladorPlazas) {
+                ((ControladorPlazas) controlador).setUsuario(usuario);
             } else if (controlador instanceof ControladorPagos) {
                 ((ControladorPagos) controlador).setUsuario(usuario);
             } else if (controlador instanceof ControladorSanciones) {
