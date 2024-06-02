@@ -4,20 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04b73eeb-e7da-4765-9828-39ad0a3a9a26" name="Changes" comment="ParkPlateSystem actualización (01/05/2024 20:22)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorNavegacion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/TipoRol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/UsuarioConTipoRol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/images/icono_ParkPlateSystem.png" afterDir="false" />
+    <list default="true" id="04b73eeb-e7da-4765-9828-39ad0a3a9a26" name="Changes" comment="ParkPlateSystem actualización (02/05/2024 7:45)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazasUsuario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReservasUsuario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazasAdmin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reservasUsuario.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/AplicacionParkPlateSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/AplicacionParkPlateSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEntradasSalidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorEntradasSalidas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorMantenimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorMantenimiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazasAparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPlazasAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/PlazaAparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/model/Plaza.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/mantenimiento.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/mantenimiento.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazas.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tfg/parkplatesystem/controller/ControladorReservasAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/plazasUsuario.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principalAdministrador.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principalUsuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/principalUsuario.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reservas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/tfg/parkplatesystem/fxml/reservasAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,8 @@
       <workItem from="1717172278635" duration="9860000" />
       <workItem from="1717182559891" duration="108000" />
       <workItem from="1717239571504" duration="18602000" />
-      <workItem from="1717287479261" duration="16896000" />
+      <workItem from="1717287479261" duration="17132000" />
+      <workItem from="1717326938358" duration="9389000" />
     </task>
     <task id="LOCAL-00001" summary="ParkPlateSystem con estructura completa (24/05/2024 2:28)">
       <option name="closed" value="true" />
@@ -175,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717266188747</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ParkPlateSystem actualización (02/05/2024 7:45)">
+      <option name="closed" value="true" />
+      <created>1717307116273</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717307116273</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +206,7 @@
     <MESSAGE value="ParkPlateSystem actualización (27/05/2024 4:05)" />
     <MESSAGE value="ParkPlateSystem actualización (31/05/2024 3:16)" />
     <MESSAGE value="ParkPlateSystem actualización (01/05/2024 20:22)" />
-    <option name="LAST_COMMIT_MESSAGE" value="ParkPlateSystem actualización (01/05/2024 20:22)" />
+    <MESSAGE value="ParkPlateSystem actualización (02/05/2024 7:45)" />
+    <option name="LAST_COMMIT_MESSAGE" value="ParkPlateSystem actualización (02/05/2024 7:45)" />
   </component>
 </project>

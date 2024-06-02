@@ -38,7 +38,7 @@
         </AnchorPane>
     </left>
     <center>
-        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0">
+        <VBox fx:id="elementosMenu" alignment="CENTER" prefHeight="411.0" prefWidth="576.0" onKeyPressed="#manejarPresionTeclaUsuario">
             <children>
                 <Button fx:id="botonGestionPagos" mnemonicParsing="false" onAction="#handleGestionPagosButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Pagos">
                     <graphic>
@@ -112,7 +112,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionPlazasAparcamiento" mnemonicParsing="false" onAction="#handleGestionPlazasAparcamientoButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Plazas">
+                <Button fx:id="botonGestionPlazasAparcamiento" mnemonicParsing="false" onAction="#handleGestionPlazasAparcamientoUsuarioButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Plazas">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>
@@ -121,7 +121,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="botonGestionReservas" mnemonicParsing="false" onAction="#handleGestionReservasButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Reservas">
+                <Button fx:id="botonGestionReservas" mnemonicParsing="false" onAction="#handleGestionReservasUsuarioButton" prefHeight="80.0" prefWidth="600.0" styleClass="menu-button" text="Gestión de Reservas">
                     <graphic>
                         <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                             <image>

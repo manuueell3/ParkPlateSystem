@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class ControladorPlazas {
+public class ControladorPlazasAdmin {
 
     @FXML
     private TableView<Plaza> plazasTable;

@@ -14,7 +14,7 @@ import com.tfg.parkplatesystem.model.Reserva;
 
 import java.io.IOException;
 
-public class ControladorReservas {
+public class ControladorReservasAdmin {
 
     @FXML
     private TableView<Reserva> reservasTable;

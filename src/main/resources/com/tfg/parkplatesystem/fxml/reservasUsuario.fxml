@@ -8,12 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-
 <?import java.net.URL?>
+
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tfg.parkplatesystem.controller.ControladorReservas" spacing="10" alignment="CENTER" styleClass="vbox">
+      fx:controller="com.tfg.parkplatesystem.controller.ControladorReservasUsuario" spacing="10" alignment="CENTER" styleClass="vbox">
     <children>
-        <Label text="Gestión de Reservas" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Label text="Mis Reservas" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
         <TableView fx:id="reservasTable">
             <columns>
@@ -26,7 +26,6 @@
 
         <HBox spacing="10" alignment="CENTER">
             <children>
-                <TextField fx:id="usuarioTextField" promptText="Usuario"/>
                 <TextField fx:id="plazaTextField" promptText="Plaza"/>
                 <TextField fx:id="fechaTextField" promptText="Fecha"/>
                 <Button text="Añadir Reserva" onAction="#handleAddReserva"/>
