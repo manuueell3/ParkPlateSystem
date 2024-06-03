@@ -108,7 +108,7 @@ public class Mantenimiento {
         while (resultSet.next()) {
             Mantenimiento mantenimiento = new Mantenimiento(
                     resultSet.getLong("id_plaza"),
-                    resultSet.getString("descripción"),
+                    resultSet.getString("descripcion"),
                     resultSet.getString("fecha_inicio"),
                     resultSet.getString("fecha_fin"),
                     resultSet.getString("estado")
@@ -122,7 +122,7 @@ public class Mantenimiento {
 
     public void guardar() throws SQLException {
         Connection connection = UtilMysql.getConnection();
-        String query = "INSERT INTO Mantenimientos (id_plaza, descripción, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Mantenimientos (id_plaza, descripcion, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
         statement.setLong(1, this.getIdPlaza());
         statement.setString(2, this.getDescripcion());
@@ -139,7 +139,7 @@ public class Mantenimiento {
 
     public void actualizar() throws SQLException {
         Connection connection = UtilMysql.getConnection();
-        String query = "UPDATE Mantenimientos SET id_plaza = ?, descripción = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
+        String query = "UPDATE Mantenimientos SET id_plaza = ?, descripcion = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_mantenimiento = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setLong(1, this.getIdPlaza());
         statement.setString(2, this.getDescripcion());

@@ -76,7 +76,7 @@ public class RegistroEntradaSalida {
             while (rs.next()) {
                 RegistroEntradaSalida registro = new RegistroEntradaSalida(
                         rs.getLong("id_registro"),
-                        rs.getLong("id_vehículo"),
+                        rs.getLong("id_vehiculo"),
                         rs.getString("fecha_hora_entrada"),
                         rs.getString("fecha_hora_salida"),
                         rs.getLong("id_plaza")
@@ -91,7 +91,7 @@ public class RegistroEntradaSalida {
 
     // Método para guardar un registro de entrada y salida
     public void guardar() {
-        String sql = "INSERT INTO EntradasSalidas (id_vehículo, fecha_hora_entrada, fecha_hora_salida, id_plaza) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO EntradasSalidas (id_vehiculo, fecha_hora_entrada, fecha_hora_salida, id_plaza) VALUES (?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -107,7 +107,7 @@ public class RegistroEntradaSalida {
 
     // Método para actualizar un registro de entrada y salida
     public void actualizar() {
-        String sql = "UPDATE EntradasSalidas SET id_vehículo = ?, fecha_hora_entrada = ?, fecha_hora_salida = ?, id_plaza = ? WHERE id_registro = ?";
+        String sql = "UPDATE EntradasSalidas SET id_vehiculo = ?, fecha_hora_entrada = ?, fecha_hora_salida = ?, id_plaza = ? WHERE id_registro = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

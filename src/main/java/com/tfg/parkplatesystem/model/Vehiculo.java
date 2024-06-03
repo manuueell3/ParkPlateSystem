@@ -78,15 +78,15 @@ public class Vehiculo {
     // Método para obtener todos los vehículos
     public static List<Vehiculo> obtenerTodos() {
         List<Vehiculo> vehiculos = new ArrayList<>();
-        String sql = "SELECT * FROM Vehículos";
+        String sql = "SELECT * FROM vehiculos";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Vehiculo vehiculo = new Vehiculo(
-                        rs.getLong("id_vehículo"),
-                        rs.getString("matrícula"),
+                        rs.getLong("id_vehiculo"),
+                        rs.getString("matricula"),
                         rs.getString("marca"),
                         rs.getString("modelo"),
                         rs.getString("color"),
@@ -102,7 +102,7 @@ public class Vehiculo {
 
     // Método para guardar un vehículo
     public void guardar() {
-        String sql = "INSERT INTO Vehículos (matrícula, marca, modelo, color, id_usuario) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO vehiculos (matricula, marca, modelo, color, id_usuario) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -119,7 +119,7 @@ public class Vehiculo {
 
     // Método para actualizar un vehículo
     public void actualizar() {
-        String sql = "UPDATE Vehículos SET matrícula = ?, marca = ?, modelo = ?, color = ?, id_usuario = ? WHERE id_vehículo = ?";
+        String sql = "UPDATE vehiculos SET matricula = ?, marca = ?, modelo = ?, color = ?, id_usuario = ? WHERE id_vehiculo = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -137,7 +137,7 @@ public class Vehiculo {
 
     // Método para eliminar un vehículo
     public void eliminar() {
-        String sql = "DELETE FROM Vehículos WHERE id_vehículo = ?";
+        String sql = "DELETE FROM vehiculos WHERE id_vehiculo = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

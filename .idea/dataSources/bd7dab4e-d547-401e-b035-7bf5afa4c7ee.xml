@@ -1011,7 +1011,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="293" parent="1" name="parkplatesystem">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-06-03.00:18:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-06-03.11:13:19</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="294" parent="1" name="mysql.infoschema">
@@ -1101,7 +1101,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="315" parent="293" name="vehículos">
+    <table id="315" parent="293" name="vehiculos">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
@@ -1137,7 +1137,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="322" parent="299" name="id_vehículo">
+    <column id="322" parent="299" name="id_vehiculo">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
@@ -1155,9 +1155,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>5</Position>
     </column>
     <foreign-key id="326" parent="299" name="entradassalidas_ibfk_1">
-      <ColNames>id_vehículo</ColNames>
-      <RefColNames>id_vehículo</RefColNames>
-      <RefTableName>vehículos</RefTableName>
+      <ColNames>id_vehiculo</ColNames>
+      <RefColNames>id_vehiculo</RefColNames>
+      <RefTableName>vehiculos</RefTableName>
     </foreign-key>
     <foreign-key id="327" parent="299" name="entradassalidas_ibfk_2">
       <ColNames>id_plaza</ColNames>
@@ -1170,7 +1170,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Unique>1</Unique>
     </index>
     <index id="329" parent="299" name="id_vehículo">
-      <ColNames>id_vehículo</ColNames>
+      <ColNames>id_vehiculo</ColNames>
       <Type>btree</Type>
     </index>
     <index id="330" parent="299" name="id_plaza">
@@ -1197,7 +1197,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="335" parent="300" name="descripción">
+    <column id="335" parent="300" name="descripcion">
       <DasType>text|0s</DasType>
       <Position>4</Position>
     </column>
@@ -1328,7 +1328,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="363" parent="303" name="descripción">
+    <column id="363" parent="303" name="descripcion">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </column>
@@ -1424,7 +1424,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="383" parent="305" name="id_vehículo">
+    <column id="383" parent="305" name="id_vehiculo">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
@@ -1454,9 +1454,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <RefTableName>entradassalidas</RefTableName>
     </foreign-key>
     <foreign-key id="389" parent="305" name="pagos_ibfk_3">
-      <ColNames>id_vehículo</ColNames>
-      <RefColNames>id_vehículo</RefColNames>
-      <RefTableName>vehículos</RefTableName>
+      <ColNames>id_vehiculo</ColNames>
+      <RefColNames>id_vehiculo</RefColNames>
+      <RefTableName>vehiculos</RefTableName>
     </foreign-key>
     <index id="390" parent="305" name="PRIMARY">
       <ColNames>id_pago</ColNames>
@@ -1472,7 +1472,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <index id="393" parent="305" name="id_vehículo">
-      <ColNames>id_vehículo</ColNames>
+      <ColNames>id_vehiculo</ColNames>
       <Type>btree</Type>
     </index>
     <key id="394" parent="305" name="PRIMARY">
@@ -1745,8 +1745,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <foreign-key id="449" parent="311" name="sanciones_ibfk_1">
       <ColNames>id_vehículo</ColNames>
-      <RefColNames>id_vehículo</RefColNames>
-      <RefTableName>vehículos</RefTableName>
+      <RefColNames>id_vehiculo</RefColNames>
+      <RefTableName>vehiculos</RefTableName>
     </foreign-key>
     <foreign-key id="450" parent="311" name="sanciones_ibfk_2">
       <ColNames>id_usuario</ColNames>
@@ -1898,13 +1898,13 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <key id="480" parent="314" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <column id="481" parent="315" name="id_vehículo">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="481" parent="315" name="id_vehiculo">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="482" parent="315" name="matrícula">
+    <column id="482" parent="315" name="matricula">
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
@@ -1927,18 +1927,18 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>int|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="487" parent="315" name="vehículos_ibfk_1">
+    <foreign-key id="487" parent="315" name="vehiculos_ibfk_1">
       <ColNames>id_usuario</ColNames>
       <RefColNames>id_usuario</RefColNames>
       <RefTableName>usuarios</RefTableName>
     </foreign-key>
     <index id="488" parent="315" name="PRIMARY">
-      <ColNames>id_vehículo</ColNames>
+      <ColNames>id_vehiculo</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
     <index id="489" parent="315" name="matrícula">
-      <ColNames>matrícula</ColNames>
+      <ColNames>matricula</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>

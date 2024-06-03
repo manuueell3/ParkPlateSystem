@@ -89,33 +89,40 @@ public class Notificacion {
         return notificaciones;
     }
 
-    // Método para guardar una notificación
-    public void guardar() {
-        String sql = "INSERT INTO Notificaciones (id_usuario, mensaje, leída, fecha_hora) VALUES (?, ?, ?, ?)";
+    // Método para obtener notificaciones por usuario
+    public static List<Notificacion> obtenerPorUsuario(Long idUsuario) {
+        List<Notificacion> notificaciones = new ArrayList<>();
+        String sql = "SELECT * FROM Notificaciones WHERE id_usuario = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.mensaje);
-            stmt.setBoolean(3, this.leida);
-            stmt.setString(4, this.fechaHora);
-            stmt.executeUpdate();
+            stmt.setLong(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Notificacion notificacion = new Notificacion(
+                            rs.getLong("id_notificación"),
+                            rs.getLong("id_usuario"),
+                            rs.getString("mensaje"),
+                            rs.getBoolean("leída"),
+                            rs.getString("fecha_hora")
+                    );
+                    notificaciones.add(notificacion);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return notificaciones;
     }
 
     // Método para actualizar una notificación
     public void actualizar() {
-        String sql = "UPDATE Notificaciones SET id_usuario = ?, mensaje = ?, leída = ?, fecha_hora = ? WHERE id_notificación = ?";
+        String sql = "UPDATE Notificaciones SET leída = ? WHERE id_notificación = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.mensaje);
-            stmt.setBoolean(3, this.leida);
-            stmt.setString(4, this.fechaHora);
-            stmt.setLong(5, this.idNotificacion);
+            stmt.setBoolean(1, this.leida);
+            stmt.setLong(2, this.idNotificacion);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

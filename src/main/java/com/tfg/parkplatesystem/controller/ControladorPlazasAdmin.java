@@ -101,7 +101,7 @@ public class ControladorPlazasAdmin {
         if (plaza != null) {
             numeroPlazaTextField.setText(String.valueOf(plaza.getNumeroPlaza()));
             estadoComboBox.setValue(plaza.getEstado());
-            fechaBloqueoTextField.setText(plaza.getFechaBloqueo());
+            fechaBloqueoTextField.setText(plaza.getFechaBloqueo() == null ? "" : plaza.getFechaBloqueo());
         } else {
             limpiarCampos();
         }
@@ -240,6 +240,13 @@ public class ControladorPlazasAdmin {
 
         if (numeroPlaza.isEmpty() || estado == null || estado.isEmpty()) {
             mostrarAlerta("Error de entrada", "Por favor, complete todos los campos.", Alert.AlertType.ERROR);
+            return false;
+        }
+
+        try {
+            Integer.parseInt(numeroPlaza);
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de formato", "El número de plaza debe ser un valor numérico.", Alert.AlertType.ERROR);
             return false;
         }
 

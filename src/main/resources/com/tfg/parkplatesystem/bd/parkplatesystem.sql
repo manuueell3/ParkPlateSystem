@@ -56,7 +56,7 @@ CREATE TABLE EntradasSalidas
     fecha_hora_entrada DATETIME NOT NULL,
     fecha_hora_salida  DATETIME,
     id_plaza           INT,
-    FOREIGN KEY (id_vehículo) REFERENCES Vehículos (id_vehículo),
+    FOREIGN KEY (id_vehículo) REFERENCES vehiculos (id_vehiculo),
     FOREIGN KEY (id_plaza) REFERENCES Plazas (id_plaza)
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE Pagos
     forma_pago      VARCHAR(50)    NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario),
     FOREIGN KEY (id_registro) REFERENCES EntradasSalidas (id_registro),
-    FOREIGN KEY (id_vehículo) REFERENCES Vehículos (id_vehículo)
+    FOREIGN KEY (id_vehículo) REFERENCES vehiculos (id_vehiculo)
 );
 
 -- Tabla 7: Tarjetas
@@ -108,7 +108,7 @@ CREATE TABLE Sanciones
     monto          DECIMAL(10, 2) NOT NULL,
     fecha_hora     DATETIME       NOT NULL,
     fecha_max_pago DATE           NOT NULL,
-    FOREIGN KEY (id_vehículo) REFERENCES Vehículos (id_vehículo),
+    FOREIGN KEY (id_vehículo) REFERENCES vehiculos (id_vehiculo),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario)
 );
 

@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.tfg.parkplatesystem.util.UtilMysql;
 
 public class Evento {
@@ -14,9 +17,9 @@ public class Evento {
     private Long idUsuario;
     private String tipoEvento;
     private String descripcion;
-    private String fechaHora;
+    private LocalDateTime fechaHora;
 
-    public Evento(Long idEvento, Long idUsuario, String tipoEvento, String descripcion, String fechaHora) {
+    public Evento(Long idEvento, Long idUsuario, String tipoEvento, String descripcion, LocalDateTime fechaHora) {
         this.idEvento = idEvento;
         this.idUsuario = idUsuario;
         this.tipoEvento = tipoEvento;
@@ -57,21 +60,23 @@ public class Evento {
         this.descripcion = descripcion;
     }
 
-    public String getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(String fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
     // Método para obtener todos los eventos
-    public static List<Evento> obtenerTodos() {
+    public static List<Evento> obtenerTodos(Long idUsuario) {
         List<Evento> eventos = new ArrayList<>();
-        String sql = "SELECT * FROM Eventos";
+        String sql = "SELECT * FROM Eventos WHERE id_usuario = ?";
         try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Evento evento = new Evento(
@@ -79,7 +84,7 @@ public class Evento {
                         rs.getLong("id_usuario"),
                         rs.getString("tipo_evento"),
                         rs.getString("descripción"),
-                        rs.getString("fecha_hora")
+                        rs.getTimestamp("fecha_hora").toLocalDateTime()
                 );
                 eventos.add(evento);
             }
@@ -91,14 +96,14 @@ public class Evento {
 
     // Método para guardar un evento
     public void guardar() {
-        String sql = "INSERT INTO Eventos (id_usuario, tipo_evento, descripción, fecha_hora) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Eventos (id_usuario, tipo_evento, descripcion, fecha_hora) VALUES (?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
             stmt.setString(2, this.tipoEvento);
             stmt.setString(3, this.descripcion);
-            stmt.setString(4, this.fechaHora);
+            stmt.setTimestamp(4, java.sql.Timestamp.valueOf(this.fechaHora));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,14 +112,14 @@ public class Evento {
 
     // Método para actualizar un evento
     public void actualizar() {
-        String sql = "UPDATE Eventos SET id_usuario = ?, tipo_evento = ?, descripción = ?, fecha_hora = ? WHERE id_evento = ?";
+        String sql = "UPDATE Eventos SET id_usuario = ?, tipo_evento = ?, descripcion = ?, fecha_hora = ? WHERE id_evento = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
             stmt.setString(2, this.tipoEvento);
             stmt.setString(3, this.descripcion);
-            stmt.setString(4, this.fechaHora);
+            stmt.setTimestamp(4, java.sql.Timestamp.valueOf(this.fechaHora));
             stmt.setLong(5, this.idEvento);
             stmt.executeUpdate();
         } catch (SQLException e) {

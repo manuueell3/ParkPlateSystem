@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,8 +49,6 @@ public class ControladorPagos {
     @FXML
     private DatePicker filtroFechaFin;
     @FXML
-    private Button btnBuscar;
-    @FXML
     private Button btnLimpiarFiltros;
 
     private ObservableList<Pago> listaPagos;
@@ -58,7 +58,12 @@ public class ControladorPagos {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        cargarDatosUsuario();
+        try {
+            cargarDatosUsuario();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al cargar datos del usuario", e);
+            mostrarAlerta("Error", "No se pudieron cargar los datos del usuario: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -74,65 +79,35 @@ public class ControladorPagos {
         listaPagos = FXCollections.observableArrayList();
         tablaPagos.setItems(listaPagos);
 
-        filtroFormaPago.setItems(FXCollections.observableArrayList("Efectivo", "Tarjeta", "Transferencia"));
+        filtroFormaPago.setItems(FXCollections.observableArrayList("Todos", "Efectivo", "Tarjeta", "Transferencia"));
+        filtroFormaPago.setValue("Todos");
         configurarBusqueda();
     }
 
-    private void cargarDatosUsuario() {
+    private void cargarDatosUsuario() throws SQLException {
         listaPagos.clear();
         List<Pago> pagos = Pago.obtenerTodos();
+        if (pagos.isEmpty()) {
+            LOGGER.log(Level.INFO, "No se encontraron pagos en la base de datos.");
+        } else {
+            LOGGER.log(Level.INFO, "Número de pagos encontrados: " + pagos.size());
+        }
         for (Pago pago : pagos) {
             if (pago.getIdUsuario().equals(usuario.getIdUsuario())) {
                 listaPagos.add(pago);
+                LOGGER.log(Level.INFO, "Pago añadido a la lista: " + pago.getIdPago());
             }
         }
+        configurarBusqueda();
     }
 
     private void configurarBusqueda() {
         FilteredList<Pago> filteredData = new FilteredList<>(listaPagos, p -> true);
 
-        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(pago -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return String.valueOf(pago.getIdPago()).contains(lowerCaseFilter) ||
-                        String.valueOf(pago.getIdUsuario()).contains(lowerCaseFilter) ||
-                        String.valueOf(pago.getIdRegistro()).contains(lowerCaseFilter) ||
-                        String.valueOf(pago.getIdVehiculo()).contains(lowerCaseFilter) ||
-                        String.valueOf(pago.getMonto()).contains(lowerCaseFilter) ||
-                        pago.getFechaHoraPago().toLowerCase().contains(lowerCaseFilter) ||
-                        pago.getFormaPago().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-
-        filtroFormaPago.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(pago -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                return pago.getFormaPago().equalsIgnoreCase(newValue);
-            });
-        });
-
-        filtroFechaInicio.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(pago -> {
-                if (newValue == null) {
-                    return true;
-                }
-                return pago.getFechaHoraPago().compareTo(newValue.toString()) >= 0;
-            });
-        });
-
-        filtroFechaFin.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(pago -> {
-                if (newValue == null) {
-                    return true;
-                }
-                return pago.getFechaHoraPago().compareTo(newValue.toString()) <= 0;
-            });
-        });
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros(filteredData));
+        filtroFormaPago.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros(filteredData));
+        filtroFechaInicio.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros(filteredData));
+        filtroFechaFin.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros(filteredData));
 
         SortedList<Pago> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tablaPagos.comparatorProperty());
@@ -140,18 +115,57 @@ public class ControladorPagos {
         tablaPagos.setItems(sortedData);
     }
 
-    @FXML
-    private void buscar(ActionEvent event) {
-        configurarBusqueda();
+    private void aplicarFiltros(FilteredList<Pago> filteredData) {
+        filteredData.setPredicate(pago -> {
+            // Filtro de texto
+            String filterText = txtBuscar.getText();
+            if (filterText != null && !filterText.isEmpty()) {
+                String lowerCaseFilter = filterText.toLowerCase();
+                if (!String.valueOf(pago.getIdPago()).contains(lowerCaseFilter) &&
+                        !String.valueOf(pago.getIdUsuario()).contains(lowerCaseFilter) &&
+                        !String.valueOf(pago.getIdRegistro()).contains(lowerCaseFilter) &&
+                        !String.valueOf(pago.getIdVehiculo()).contains(lowerCaseFilter) &&
+                        !String.valueOf(pago.getMonto()).contains(lowerCaseFilter) &&
+                        !pago.getFechaHoraPago().toLowerCase().contains(lowerCaseFilter) &&
+                        !pago.getFormaPago().toLowerCase().contains(lowerCaseFilter)) {
+                    return false;
+                }
+            }
+
+            // Filtro de forma de pago
+            String formaPago = filtroFormaPago.getValue();
+            if (formaPago != null && !formaPago.equalsIgnoreCase("Todos") && !formaPago.isEmpty()) {
+                if (!pago.getFormaPago().equalsIgnoreCase(formaPago)) {
+                    return false;
+                }
+            }
+
+            // Filtro de fechas
+            LocalDate fechaInicio = filtroFechaInicio.getValue();
+            LocalDate fechaFin = filtroFechaFin.getValue();
+            LocalDate fechaPago;
+            try {
+                fechaPago = LocalDate.parse(pago.getFechaHoraPago().split(" ")[0]);
+            } catch (Exception e) {
+                return false;
+            }
+            if (fechaInicio != null && fechaPago.isBefore(fechaInicio)) {
+                return false;
+            }
+            if (fechaFin != null && fechaPago.isAfter(fechaFin)) {
+                return false;
+            }
+
+            return true;
+        });
     }
 
     @FXML
     private void limpiarFiltros(ActionEvent event) {
         txtBuscar.clear();
-        filtroFormaPago.getSelectionModel().clearSelection();
+        filtroFormaPago.setValue("Todos");
         filtroFechaInicio.setValue(null);
         filtroFechaFin.setValue(null);
-        configurarBusqueda();
     }
 
     @FXML
