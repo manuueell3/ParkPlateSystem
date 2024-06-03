@@ -185,7 +185,7 @@ public class ControladorPrincipal {
 
     @FXML
     public void handleGestionRegistrosButton(ActionEvent event) {
-        cambiarEscena("/com/tfg/parkplatesystem/fxml/registros.fxml", "Park Plate System - Gestión de Registros");
+        cambiarEscena("/com/tfg/parkplatesystem/fxml/registro.fxml", "Park Plate System - Gestión de Registros");
     }
 
     @FXML

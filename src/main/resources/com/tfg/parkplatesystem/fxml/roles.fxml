@@ -75,7 +75,7 @@
             <children>
                 <Button onAction="#handleExportCSV" text="Exportar CSV" />
                 <Button onAction="#handleExportPDF" text="Exportar PDF" />
-      
+
               <Button onAction="#handleViewHistorial" text="Ver Historial de Roles" />
                 <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
             </children>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20"/>
+    </padding>
+    <children>
+        <BarChart fx:id="barChart" prefHeight="400" prefWidth="600">
+            <xAxis>
+                <CategoryAxis label="Estado"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Cantidad"/>
+            </yAxis>
+        </BarChart>
+    </children>
+</VBox>

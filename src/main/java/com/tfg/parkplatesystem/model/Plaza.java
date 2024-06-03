@@ -76,7 +76,7 @@ public class Plaza {
             while (rs.next()) {
                 Plaza plaza = new Plaza(
                         rs.getLong("id_plaza"),
-                        rs.getInt("número_plaza"),
+                        rs.getInt("numero_plaza"),
                         rs.getString("estado"),
                         rs.getString("fecha_bloqueo"),
                         rs.getString("fecha_alta")
@@ -89,7 +89,7 @@ public class Plaza {
 
     // Método para guardar una nueva plaza
     public void guardar() throws SQLException {
-        String sql = "INSERT INTO Plazas (número_plaza, estado, fecha_alta) VALUES (?, ?, NOW())";
+        String sql = "INSERT INTO Plazas (numero_plaza, estado, fecha_alta) VALUES (?, ?, NOW())";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

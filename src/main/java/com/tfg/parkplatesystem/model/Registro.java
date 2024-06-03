@@ -12,14 +12,16 @@ public class Registro {
 
     private Long idRegistro;
     private Long idUsuario;
-    private String actividad;
-    private String fechaHora;
+    private String tipo;
+    private String fecha;
+    private String estado;
 
-    public Registro(Long idRegistro, Long idUsuario, String actividad, String fechaHora) {
+    public Registro(Long idRegistro, Long idUsuario, String tipo, String fecha, String estado) {
         this.idRegistro = idRegistro;
         this.idUsuario = idUsuario;
-        this.actividad = actividad;
-        this.fechaHora = fechaHora;
+        this.tipo = tipo;
+        this.fecha = fecha;
+        this.estado = estado;
     }
 
     // Getters y setters
@@ -39,26 +41,34 @@ public class Registro {
         this.idUsuario = idUsuario;
     }
 
-    public String getActividad() {
-        return actividad;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getFechaHora() {
-        return fechaHora;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setFechaHora(String fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     // Método para obtener todos los registros
     public static List<Registro> obtenerTodos() {
         List<Registro> registros = new ArrayList<>();
-        String sql = "SELECT * FROM Registro";
+        String sql = "SELECT * FROM Registros";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -67,8 +77,9 @@ public class Registro {
                 Registro registro = new Registro(
                         rs.getLong("id_registro"),
                         rs.getLong("id_usuario"),
-                        rs.getString("actividad"),
-                        rs.getString("fecha_hora")
+                        rs.getString("tipo"),
+                        rs.getString("fecha"),
+                        rs.getString("estado")
                 );
                 registros.add(registro);
             }
@@ -80,13 +91,14 @@ public class Registro {
 
     // Método para guardar un registro
     public void guardar() {
-        String sql = "INSERT INTO Registro (id_usuario, actividad, fecha_hora) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Registros (id_usuario, tipo, fecha, estado) VALUES (?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.actividad);
-            stmt.setString(3, this.fechaHora);
+            stmt.setString(2, this.tipo);
+            stmt.setString(3, this.fecha);
+            stmt.setString(4, this.estado);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,14 +107,15 @@ public class Registro {
 
     // Método para actualizar un registro
     public void actualizar() {
-        String sql = "UPDATE Registro SET id_usuario = ?, actividad = ?, fecha_hora = ? WHERE id_registro = ?";
+        String sql = "UPDATE Registros SET id_usuario = ?, tipo = ?, fecha = ?, estado = ? WHERE id_registro = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.actividad);
-            stmt.setString(3, this.fechaHora);
-            stmt.setLong(4, this.idRegistro);
+            stmt.setString(2, this.tipo);
+            stmt.setString(3, this.fecha);
+            stmt.setString(4, this.estado);
+            stmt.setLong(5, this.idRegistro);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,7 +124,7 @@ public class Registro {
 
     // Método para eliminar un registro
     public void eliminar() {
-        String sql = "DELETE FROM Registro WHERE id_registro = ?";
+        String sql = "DELETE FROM Registros WHERE id_registro = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
