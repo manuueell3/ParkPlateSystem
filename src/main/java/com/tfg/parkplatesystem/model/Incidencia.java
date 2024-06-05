@@ -1,11 +1,14 @@
 package com.tfg.parkplatesystem.model;
 
-import com.tfg.parkplatesystem.util.UtilMysql;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import com.tfg.parkplatesystem.util.UtilMysql;
 
 public class Incidencia {
 
@@ -14,6 +17,8 @@ public class Incidencia {
     private String descripcion;
     private LocalDateTime fechaHora;
     private String estado;
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Incidencia(Long idIncidencia, Long idUsuario, String descripcion, LocalDateTime fechaHora, String estado) {
         this.idIncidencia = idIncidencia;
@@ -64,31 +69,7 @@ public class Incidencia {
         this.estado = estado;
     }
 
-    // Método para obtener todas las incidencias
-    public static List<Incidencia> obtenerTodas() {
-        List<Incidencia> incidencias = new ArrayList<>();
-        String sql = "SELECT * FROM Incidencias";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Incidencia incidencia = new Incidencia(
-                        rs.getLong("id_incidencia"),
-                        rs.getLong("id_usuario"),
-                        rs.getString("descripción"),
-                        rs.getTimestamp("fecha_hora").toLocalDateTime(),
-                        rs.getString("estado")
-                );
-                incidencias.add(incidencia);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return incidencias;
-    }
-
-    // Método para obtener incidencias por usuario
+    // Método para obtener todas las incidencias por usuario
     public static List<Incidencia> obtenerPorUsuario(Long idUsuario) {
         List<Incidencia> incidencias = new ArrayList<>();
         String sql = "SELECT * FROM Incidencias WHERE id_usuario = ?";
@@ -96,17 +77,17 @@ public class Incidencia {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, idUsuario);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Incidencia incidencia = new Incidencia(
-                        rs.getLong("id_incidencia"),
-                        rs.getLong("id_usuario"),
-                        rs.getString("descripción"),
-                        rs.getTimestamp("fecha_hora").toLocalDateTime(),
-                        rs.getString("estado")
-                );
-                incidencias.add(incidencia);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Incidencia incidencia = new Incidencia(
+                            rs.getLong("id_incidencia"),
+                            rs.getLong("id_usuario"),
+                            rs.getString("descripción"),
+                            rs.getTimestamp("fecha_hora").toLocalDateTime(),
+                            rs.getString("estado")
+                    );
+                    incidencias.add(incidencia);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,21 +99,13 @@ public class Incidencia {
     public void guardar() {
         String sql = "INSERT INTO Incidencias (id_usuario, descripción, fecha_hora, estado) VALUES (?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, this.idUsuario);
             stmt.setString(2, this.descripcion);
-            stmt.setTimestamp(3, Timestamp.valueOf(this.fechaHora));
+            stmt.setTimestamp(3, java.sql.Timestamp.valueOf(this.fechaHora));
             stmt.setString(4, this.estado);
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows > 0) {
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        this.idIncidencia = generatedKeys.getLong(1);
-                    }
-                }
-            }
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -140,15 +113,14 @@ public class Incidencia {
 
     // Método para actualizar una incidencia
     public void actualizar() {
-        String sql = "UPDATE Incidencias SET id_usuario = ?, descripción = ?, fecha_hora = ?, estado = ? WHERE id_incidencia = ?";
+        String sql = "UPDATE Incidencias SET descripción = ?, fecha_hora = ?, estado = ? WHERE id_incidencia = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.descripcion);
-            stmt.setTimestamp(3, Timestamp.valueOf(this.fechaHora));
-            stmt.setString(4, this.estado);
-            stmt.setLong(5, this.idIncidencia);
+            stmt.setString(1, this.descripcion);
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(this.fechaHora));
+            stmt.setString(3, this.estado);
+            stmt.setLong(4, this.idIncidencia);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

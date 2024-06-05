@@ -2,6 +2,7 @@ package com.tfg.parkplatesystem.controller;
 
 import com.tfg.parkplatesystem.model.Notificacion;
 import com.tfg.parkplatesystem.model.Usuario;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +67,7 @@ public class ControladorNotificaciones {
         columnaIdUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         columnaMensaje.setCellValueFactory(new PropertyValueFactory<>("mensaje"));
         columnaLeida.setCellValueFactory(new PropertyValueFactory<>("leida"));
-        columnaFechaHora.setCellValueFactory(new PropertyValueFactory<>("fechaHora"));
+        columnaFechaHora.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaHoraFormateada()));
 
         listaNotificaciones = FXCollections.observableArrayList();
         tablaNotificaciones.setItems(listaNotificaciones);
@@ -75,8 +77,13 @@ public class ControladorNotificaciones {
 
     private void cargarDatosUsuario() {
         listaNotificaciones.clear();
-        List<Notificacion> notificaciones = Notificacion.obtenerPorUsuario(usuario.getIdUsuario());
-        listaNotificaciones.addAll(notificaciones);
+        try {
+            List<Notificacion> notificaciones = Notificacion.obtenerPorUsuario(usuario.getIdUsuario());
+            listaNotificaciones.addAll(notificaciones);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al cargar las notificaciones del usuario.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar las notificaciones del usuario.", e);
+        }
     }
 
     private void configurarBusqueda() {
@@ -90,7 +97,7 @@ public class ControladorNotificaciones {
                 String lowerCaseFilter = newValue.toLowerCase();
                 return String.valueOf(notificacion.getIdNotificacion()).contains(lowerCaseFilter) ||
                         notificacion.getMensaje().toLowerCase().contains(lowerCaseFilter) ||
-                        notificacion.getFechaHora().toLowerCase().contains(lowerCaseFilter);
+                        notificacion.getFechaHoraFormateada().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -99,7 +106,7 @@ public class ControladorNotificaciones {
                 if (newValue == null) {
                     return true;
                 }
-                return notificacion.getFechaHora().compareTo(newValue.toString()) >= 0;
+                return notificacion.getFechaHora().toLocalDate().compareTo(newValue) >= 0;
             });
         });
 
@@ -108,7 +115,7 @@ public class ControladorNotificaciones {
                 if (newValue == null) {
                     return true;
                 }
-                return notificacion.getFechaHora().compareTo(newValue.toString()) <= 0;
+                return notificacion.getFechaHora().toLocalDate().compareTo(newValue) <= 0;
             });
         });
 
@@ -120,7 +127,12 @@ public class ControladorNotificaciones {
 
     @FXML
     private void buscar(ActionEvent event) {
-        configurarBusqueda();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al realizar la búsqueda de notificaciones.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al realizar la búsqueda de notificaciones.", e);
+        }
     }
 
     @FXML
@@ -128,16 +140,29 @@ public class ControladorNotificaciones {
         txtBuscar.clear();
         filtroFechaInicio.setValue(null);
         filtroFechaFin.setValue(null);
-        configurarBusqueda();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al limpiar los filtros de búsqueda.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al limpiar los filtros de búsqueda.", e);
+        }
     }
 
     @FXML
     private void marcarComoLeida(ActionEvent event) {
         Notificacion selected = tablaNotificaciones.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            selected.setLeida(true);
-            selected.actualizar();
-            tablaNotificaciones.refresh();
+            try {
+                selected.setLeida(true);
+                selected.actualizar();
+                tablaNotificaciones.refresh();
+                mostrarAlerta("Éxito", "Notificación marcada como leída.", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al marcar la notificación como leída.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al marcar la notificación como leída.", e);
+            }
+        } else {
+            mostrarAlerta("Advertencia", "Por favor, seleccione una notificación para marcar como leída.", Alert.AlertType.WARNING);
         }
     }
 
@@ -145,8 +170,16 @@ public class ControladorNotificaciones {
     private void eliminar(ActionEvent event) {
         Notificacion selected = tablaNotificaciones.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            selected.eliminar();
-            listaNotificaciones.remove(selected);
+            try {
+                selected.eliminar();
+                listaNotificaciones.remove(selected);
+                mostrarAlerta("Éxito", "Notificación eliminada.", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al eliminar la notificación.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al eliminar la notificación.", e);
+            }
+        } else {
+            mostrarAlerta("Advertencia", "Por favor, seleccione una notificación para eliminar.", Alert.AlertType.WARNING);
         }
     }
 
@@ -157,7 +190,6 @@ public class ControladorNotificaciones {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tfg/parkplatesystem/fxml/principalUsuario.fxml"));
             Parent root = loader.load();
 
-            // Pasa el usuario al controlador de la vista principal
             ControladorPrincipal controladorPrincipal = loader.getController();
             controladorPrincipal.setUsuario(usuario);
 
@@ -166,8 +198,8 @@ public class ControladorNotificaciones {
             stage.setTitle("Menú Principal");
             stage.show();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
             mostrarAlerta("Error", "No se pudo cargar el menú principal.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
         }
     }
 

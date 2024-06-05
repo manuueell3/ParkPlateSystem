@@ -1011,7 +1011,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="293" parent="1" name="parkplatesystem">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-06-03.11:13:19</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-06-03.15:13:04</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="294" parent="1" name="mysql.infoschema">
@@ -1709,13 +1709,13 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="442" parent="311" name="id_sanción">
+    <column id="442" parent="311" name="id_sancion">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="443" parent="311" name="id_vehículo">
+    <column id="443" parent="311" name="id_vehiculo">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
@@ -1744,7 +1744,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>7</Position>
     </column>
     <foreign-key id="449" parent="311" name="sanciones_ibfk_1">
-      <ColNames>id_vehículo</ColNames>
+      <ColNames>id_vehiculo</ColNames>
       <RefColNames>id_vehiculo</RefColNames>
       <RefTableName>vehiculos</RefTableName>
     </foreign-key>
@@ -1754,12 +1754,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <RefTableName>usuarios</RefTableName>
     </foreign-key>
     <index id="451" parent="311" name="PRIMARY">
-      <ColNames>id_sanción</ColNames>
+      <ColNames>id_sancion</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
     <index id="452" parent="311" name="id_vehículo">
-      <ColNames>id_vehículo</ColNames>
+      <ColNames>id_vehiculo</ColNames>
       <Type>btree</Type>
     </index>
     <index id="453" parent="311" name="id_usuario">

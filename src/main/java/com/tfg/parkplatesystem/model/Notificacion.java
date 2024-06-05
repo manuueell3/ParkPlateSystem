@@ -1,9 +1,8 @@
 package com.tfg.parkplatesystem.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import com.tfg.parkplatesystem.util.UtilMysql;
@@ -14,9 +13,11 @@ public class Notificacion {
     private Long idUsuario;
     private String mensaje;
     private Boolean leida;
-    private String fechaHora;
+    private LocalDateTime fechaHora;
 
-    public Notificacion(Long idNotificacion, Long idUsuario, String mensaje, Boolean leida, String fechaHora) {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public Notificacion(Long idNotificacion, Long idUsuario, String mensaje, Boolean leida, LocalDateTime fechaHora) {
         this.idNotificacion = idNotificacion;
         this.idUsuario = idUsuario;
         this.mensaje = mensaje;
@@ -57,39 +58,19 @@ public class Notificacion {
         this.leida = leida;
     }
 
-    public String getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(String fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
-    // Método para obtener todas las notificaciones
-    public static List<Notificacion> obtenerTodas() {
-        List<Notificacion> notificaciones = new ArrayList<>();
-        String sql = "SELECT * FROM Notificaciones";
-        try (Connection conn = UtilMysql.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Notificacion notificacion = new Notificacion(
-                        rs.getLong("id_notificación"),
-                        rs.getLong("id_usuario"),
-                        rs.getString("mensaje"),
-                        rs.getBoolean("leída"),
-                        rs.getString("fecha_hora")
-                );
-                notificaciones.add(notificacion);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return notificaciones;
+    public String getFechaHoraFormateada() {
+        return this.fechaHora.format(FORMATTER);
     }
 
-    // Método para obtener notificaciones por usuario
+    // Método para obtener todas las notificaciones por usuario
     public static List<Notificacion> obtenerPorUsuario(Long idUsuario) {
         List<Notificacion> notificaciones = new ArrayList<>();
         String sql = "SELECT * FROM Notificaciones WHERE id_usuario = ?";
@@ -104,7 +85,7 @@ public class Notificacion {
                             rs.getLong("id_usuario"),
                             rs.getString("mensaje"),
                             rs.getBoolean("leída"),
-                            rs.getString("fecha_hora")
+                            rs.getTimestamp("fecha_hora").toLocalDateTime()
                     );
                     notificaciones.add(notificacion);
                 }
@@ -115,14 +96,33 @@ public class Notificacion {
         return notificaciones;
     }
 
-    // Método para actualizar una notificación
-    public void actualizar() {
-        String sql = "UPDATE Notificaciones SET leída = ? WHERE id_notificación = ?";
+    // Método para guardar una notificación
+    public void guardar() {
+        String sql = "INSERT INTO Notificaciones (id_usuario, mensaje, leída, fecha_hora) VALUES (?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setBoolean(1, this.leida);
-            stmt.setLong(2, this.idNotificacion);
+            stmt.setLong(1, this.idUsuario);
+            stmt.setString(2, this.mensaje);
+            stmt.setBoolean(3, this.leida);
+            stmt.setTimestamp(4, Timestamp.valueOf(this.fechaHora));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para actualizar una notificación
+    public void actualizar() {
+        String sql = "UPDATE Notificaciones SET id_usuario = ?, mensaje = ?, leída = ?, fecha_hora = ? WHERE id_notificación = ?";
+        try (Connection conn = UtilMysql.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, this.idUsuario);
+            stmt.setString(2, this.mensaje);
+            stmt.setBoolean(3, this.leida);
+            stmt.setTimestamp(4, Timestamp.valueOf(this.fechaHora));
+            stmt.setLong(5, this.idNotificacion);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

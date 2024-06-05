@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ControladorPagos {
 
@@ -54,14 +53,12 @@ public class ControladorPagos {
     private ObservableList<Pago> listaPagos;
     private Usuario usuario;
 
-    private static final Logger LOGGER = Logger.getLogger(ControladorPagos.class.getName());
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         try {
             cargarDatosUsuario();
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar datos del usuario", e);
             mostrarAlerta("Error", "No se pudieron cargar los datos del usuario: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -88,14 +85,11 @@ public class ControladorPagos {
         listaPagos.clear();
         List<Pago> pagos = Pago.obtenerTodos();
         if (pagos.isEmpty()) {
-            LOGGER.log(Level.INFO, "No se encontraron pagos en la base de datos.");
-        } else {
-            LOGGER.log(Level.INFO, "Número de pagos encontrados: " + pagos.size());
+            mostrarAlerta("Información", "No hay pagos registrados.", Alert.AlertType.INFORMATION);
         }
         for (Pago pago : pagos) {
             if (pago.getIdUsuario().equals(usuario.getIdUsuario())) {
                 listaPagos.add(pago);
-                LOGGER.log(Level.INFO, "Pago añadido a la lista: " + pago.getIdPago());
             }
         }
         configurarBusqueda();
@@ -184,7 +178,6 @@ public class ControladorPagos {
             stage.setTitle("Menú Principal");
             stage.show();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
             mostrarAlerta("Error", "No se pudo cargar el menú principal.", Alert.AlertType.ERROR);
         }
     }

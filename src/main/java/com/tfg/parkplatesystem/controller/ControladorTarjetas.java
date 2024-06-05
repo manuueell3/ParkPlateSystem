@@ -37,6 +37,12 @@ public class ControladorTarjetas {
     @FXML
     private TextField txtBuscar;
     @FXML
+    private TextField txtNumeroTarjeta;
+    @FXML
+    private DatePicker txtFechaExpiracion;
+    @FXML
+    private TextField txtCvv;
+    @FXML
     private Button btnAgregar;
     @FXML
     private Button btnActualizar;
@@ -73,11 +79,16 @@ public class ControladorTarjetas {
 
     private void cargarDatosUsuario() {
         listaTarjetas.clear();
-        List<Tarjeta> tarjetas = Tarjeta.obtenerTodas();
-        for (Tarjeta tarjeta : tarjetas) {
-            if (tarjeta.getIdUsuario().equals(usuario.getIdUsuario())) {
-                listaTarjetas.add(tarjeta);
+        try {
+            List<Tarjeta> tarjetas = Tarjeta.obtenerTodas();
+            for (Tarjeta tarjeta : tarjetas) {
+                if (tarjeta.getIdUsuario().equals(usuario.getIdUsuario())) {
+                    listaTarjetas.add(tarjeta);
+                }
             }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al cargar las tarjetas del usuario.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar las tarjetas del usuario.", e);
         }
     }
 
@@ -103,25 +114,64 @@ public class ControladorTarjetas {
 
     @FXML
     private void buscar(ActionEvent event) {
-        configurarBusqueda();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al realizar la búsqueda de tarjetas.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al realizar la búsqueda de tarjetas.", e);
+        }
     }
 
     @FXML
     private void agregarTarjeta(ActionEvent event) {
-        // Implementar lógica para agregar una tarjeta
-        Tarjeta nuevaTarjeta = new Tarjeta(null, usuario.getIdUsuario(), "1234567812345678", "2025-12-31", "123");
-        nuevaTarjeta.guardar();
-        cargarDatosUsuario();
+        try {
+            String numeroTarjeta = txtNumeroTarjeta.getText();
+            String fechaExpiracion = txtFechaExpiracion.getValue().toString();
+            String cvv = txtCvv.getText();
+
+            if (numeroTarjeta.isEmpty() || fechaExpiracion.isEmpty() || cvv.isEmpty()) {
+                mostrarAlerta("Campos vacíos", "Por favor, complete todos los campos.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            Tarjeta nuevaTarjeta = new Tarjeta(null, usuario.getIdUsuario(), numeroTarjeta, fechaExpiracion, cvv);
+            nuevaTarjeta.guardar();
+            cargarDatosUsuario();
+            mostrarAlerta("Éxito", "Tarjeta agregada exitosamente.", Alert.AlertType.INFORMATION);
+            limpiarCampos();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al agregar la tarjeta.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al agregar la tarjeta.", e);
+        }
     }
 
     @FXML
     private void actualizarTarjeta(ActionEvent event) {
         Tarjeta tarjetaSeleccionada = tablaTarjetas.getSelectionModel().getSelectedItem();
         if (tarjetaSeleccionada != null) {
-            // Implementar lógica para actualizar una tarjeta
-            tarjetaSeleccionada.setNumeroTarjeta("8765432187654321");
-            tarjetaSeleccionada.actualizar();
-            cargarDatosUsuario();
+            try {
+                String numeroTarjeta = txtNumeroTarjeta.getText();
+                String fechaExpiracion = txtFechaExpiracion.getValue().toString();
+                String cvv = txtCvv.getText();
+
+                if (numeroTarjeta.isEmpty() || fechaExpiracion.isEmpty() || cvv.isEmpty()) {
+                    mostrarAlerta("Campos vacíos", "Por favor, complete todos los campos.", Alert.AlertType.WARNING);
+                    return;
+                }
+
+                tarjetaSeleccionada.setNumeroTarjeta(numeroTarjeta);
+                tarjetaSeleccionada.setFechaExpiracion(fechaExpiracion);
+                tarjetaSeleccionada.setCvv(cvv);
+                tarjetaSeleccionada.actualizar();
+                cargarDatosUsuario();
+                mostrarAlerta("Éxito", "Tarjeta actualizada exitosamente.", Alert.AlertType.INFORMATION);
+                limpiarCampos();
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al actualizar la tarjeta.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al actualizar la tarjeta.", e);
+            }
+        } else {
+            mostrarAlerta("Selección vacía", "Por favor, seleccione una tarjeta para actualizar.", Alert.AlertType.WARNING);
         }
     }
 
@@ -129,15 +179,37 @@ public class ControladorTarjetas {
     private void eliminarTarjeta(ActionEvent event) {
         Tarjeta tarjetaSeleccionada = tablaTarjetas.getSelectionModel().getSelectedItem();
         if (tarjetaSeleccionada != null) {
-            tarjetaSeleccionada.eliminar();
-            cargarDatosUsuario();
+            try {
+                tarjetaSeleccionada.eliminar();
+                cargarDatosUsuario();
+                mostrarAlerta("Éxito", "Tarjeta eliminada exitosamente.", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al eliminar la tarjeta.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al eliminar la tarjeta.", e);
+            }
+        } else {
+            mostrarAlerta("Selección vacía", "Por favor, seleccione una tarjeta para eliminar.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     private void limpiarFiltros(ActionEvent event) {
         txtBuscar.clear();
-        configurarBusqueda();
+        txtNumeroTarjeta.clear();
+        txtFechaExpiracion.setValue(null);
+        txtCvv.clear();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al limpiar los filtros de búsqueda.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al limpiar los filtros de búsqueda.", e);
+        }
+    }
+
+    private void limpiarCampos() {
+        txtNumeroTarjeta.clear();
+        txtFechaExpiracion.setValue(null);
+        txtCvv.clear();
     }
 
     @FXML
@@ -156,8 +228,8 @@ public class ControladorTarjetas {
             stage.setTitle("Menú Principal");
             stage.show();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
             mostrarAlerta("Error", "No se pudo cargar el menú principal.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
         }
     }
 

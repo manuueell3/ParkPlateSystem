@@ -83,7 +83,7 @@ public class Evento {
                         rs.getLong("id_evento"),
                         rs.getLong("id_usuario"),
                         rs.getString("tipo_evento"),
-                        rs.getString("descripción"),
+                        rs.getString("descripcion"),
                         rs.getTimestamp("fecha_hora").toLocalDateTime()
                 );
                 eventos.add(evento);

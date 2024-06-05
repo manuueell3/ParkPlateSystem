@@ -21,8 +21,10 @@ public class AplicacionParkPlateSystem extends Application {
         // Cargar y establecer el ícono
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/tfg/parkplatesystem/images/icono_ParkPlateSystem.png")));
         primaryStage.getIcons().add(icon);
-
         primaryStage.setScene(new Scene(root));
+
+        // Centrar la ventana en la pantalla
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 

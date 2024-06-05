@@ -43,6 +43,12 @@ public class ControladorIncidencias {
     private Button btnBuscar;
     @FXML
     private Button btnLimpiarFiltros;
+    @FXML
+    private Button btnCrear;
+    @FXML
+    private Button btnActualizar;
+    @FXML
+    private Button btnEliminar;
 
     private ObservableList<Incidencia> listaIncidencias;
     private Usuario usuario;

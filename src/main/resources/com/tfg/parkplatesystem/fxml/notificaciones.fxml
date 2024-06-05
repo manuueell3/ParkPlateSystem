@@ -38,7 +38,13 @@
             </children>
         </HBox>
 
-        <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
+        <HBox alignment="CENTER" spacing="10">
+            <children>
+                <Button text="Marcar como Leída" onAction="#marcarComoLeida" />
+                <Button text="Eliminar" onAction="#eliminar" />
+                <Button onAction="#handleBackButton" styleClass="boton-volverMenu" text="Volver al Menú Principal" />
+            </children>
+        </HBox>
     </children>
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />

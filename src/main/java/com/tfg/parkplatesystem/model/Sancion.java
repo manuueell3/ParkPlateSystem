@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import com.tfg.parkplatesystem.util.UtilMysql;
@@ -15,10 +18,12 @@ public class Sancion {
     private Long idUsuario;
     private String motivo;
     private Double monto;
-    private String fechaHora;
-    private String fechaMaxPago;
+    private LocalDateTime fechaHora;
+    private LocalDateTime fechaMaxPago;
 
-    public Sancion(Long idSancion, Long idVehiculo, Long idUsuario, String motivo, Double monto, String fechaHora, String fechaMaxPago) {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public Sancion(Long idSancion, Long idVehiculo, Long idUsuario, String motivo, Double monto, LocalDateTime fechaHora, LocalDateTime fechaMaxPago) {
         this.idSancion = idSancion;
         this.idVehiculo = idVehiculo;
         this.idUsuario = idUsuario;
@@ -69,20 +74,28 @@ public class Sancion {
         this.monto = monto;
     }
 
-    public String getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(String fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
-    public String getFechaMaxPago() {
+    public LocalDateTime getFechaMaxPago() {
         return fechaMaxPago;
     }
 
-    public void setFechaMaxPago(String fechaMaxPago) {
+    public void setFechaMaxPago(LocalDateTime fechaMaxPago) {
         this.fechaMaxPago = fechaMaxPago;
+    }
+
+    public String getFechaHoraFormateada() {
+        return this.fechaHora.format(FORMATTER);
+    }
+
+    public String getFechaMaxPagoFormateada() {
+        return this.fechaMaxPago.format(FORMATTER);
     }
 
     // Método para obtener todas las sanciones
@@ -95,13 +108,13 @@ public class Sancion {
 
             while (rs.next()) {
                 Sancion sancion = new Sancion(
-                        rs.getLong("id_sanción"),
-                        rs.getLong("id_vehículo"),
+                        rs.getLong("id_sancion"),
+                        rs.getLong("id_vehiculo"),
                         rs.getLong("id_usuario"),
                         rs.getString("motivo"),
                         rs.getDouble("monto"),
-                        rs.getString("fecha_hora"),
-                        rs.getString("fecha_max_pago")
+                        rs.getTimestamp("fecha_hora").toLocalDateTime(),
+                        rs.getTimestamp("fecha_max_pago").toLocalDateTime()
                 );
                 sanciones.add(sancion);
             }
@@ -113,7 +126,7 @@ public class Sancion {
 
     // Método para guardar una sanción
     public void guardar() {
-        String sql = "INSERT INTO Sanciones (id_vehículo, id_usuario, motivo, monto, fecha_hora, fecha_max_pago) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Sanciones (id_vehiculo, id_usuario, motivo, monto, fecha_hora, fecha_max_pago) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -121,8 +134,8 @@ public class Sancion {
             stmt.setLong(2, this.idUsuario);
             stmt.setString(3, this.motivo);
             stmt.setDouble(4, this.monto);
-            stmt.setString(5, this.fechaHora);
-            stmt.setString(6, this.fechaMaxPago);
+            stmt.setTimestamp(5, Timestamp.valueOf(this.fechaHora));
+            stmt.setTimestamp(6, Timestamp.valueOf(this.fechaMaxPago));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,7 +144,7 @@ public class Sancion {
 
     // Método para actualizar una sanción
     public void actualizar() {
-        String sql = "UPDATE Sanciones SET id_vehículo = ?, id_usuario = ?, motivo = ?, monto = ?, fecha_hora = ?, fecha_max_pago = ? WHERE id_sanción = ?";
+        String sql = "UPDATE Sanciones SET id_vehiculo = ?, id_usuario = ?, motivo = ?, monto = ?, fecha_hora = ?, fecha_max_pago = ? WHERE id_sancion = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -139,8 +152,8 @@ public class Sancion {
             stmt.setLong(2, this.idUsuario);
             stmt.setString(3, this.motivo);
             stmt.setDouble(4, this.monto);
-            stmt.setString(5, this.fechaHora);
-            stmt.setString(6, this.fechaMaxPago);
+            stmt.setTimestamp(5, Timestamp.valueOf(this.fechaHora));
+            stmt.setTimestamp(6, Timestamp.valueOf(this.fechaMaxPago));
             stmt.setLong(7, this.idSancion);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -150,7 +163,7 @@ public class Sancion {
 
     // Método para eliminar una sanción
     public void eliminar() {
-        String sql = "DELETE FROM Sanciones WHERE id_sanción = ?";
+        String sql = "DELETE FROM Sanciones WHERE id_sancion = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

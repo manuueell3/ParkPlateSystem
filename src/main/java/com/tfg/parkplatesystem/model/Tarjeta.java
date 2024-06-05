@@ -107,15 +107,14 @@ public class Tarjeta {
 
     // Método para actualizar una tarjeta
     public void actualizar() {
-        String sql = "UPDATE Tarjetas SET id_usuario = ?, número_tarjeta = ?, fecha_expiración = ?, cvv = ? WHERE id_tarjeta = ?";
+        String sql = "UPDATE Tarjetas SET número_tarjeta = ?, fecha_expiración = ?, cvv = ? WHERE id_tarjeta = ?";
         try (Connection conn = UtilMysql.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setLong(1, this.idUsuario);
-            stmt.setString(2, this.numeroTarjeta);
-            stmt.setString(3, this.fechaExpiracion);
-            stmt.setString(4, this.cvv);
-            stmt.setLong(5, this.idTarjeta);
+            stmt.setString(1, this.numeroTarjeta);
+            stmt.setString(2, this.fechaExpiracion);
+            stmt.setString(3, this.cvv);
+            stmt.setLong(4, this.idTarjeta);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

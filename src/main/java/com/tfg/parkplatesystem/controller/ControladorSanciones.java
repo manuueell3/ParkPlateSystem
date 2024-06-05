@@ -2,6 +2,7 @@ package com.tfg.parkplatesystem.controller;
 
 import com.tfg.parkplatesystem.model.Sancion;
 import com.tfg.parkplatesystem.model.Usuario;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,6 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,8 +78,8 @@ public class ControladorSanciones {
         columnaIdUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         columnaMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
         columnaMonto.setCellValueFactory(new PropertyValueFactory<>("monto"));
-        columnaFechaHora.setCellValueFactory(new PropertyValueFactory<>("fechaHora"));
-        columnaFechaMaxPago.setCellValueFactory(new PropertyValueFactory<>("fechaMaxPago"));
+        columnaFechaHora.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaHoraFormateada()));
+        columnaFechaMaxPago.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaMaxPagoFormateada()));
 
         listaSanciones = FXCollections.observableArrayList();
         tablaSanciones.setItems(listaSanciones);
@@ -85,11 +89,16 @@ public class ControladorSanciones {
 
     private void cargarDatosUsuario() {
         listaSanciones.clear();
-        List<Sancion> sanciones = Sancion.obtenerTodas();
-        for (Sancion sancion : sanciones) {
-            if (sancion.getIdUsuario().equals(usuario.getIdUsuario())) {
-                listaSanciones.add(sancion);
+        try {
+            List<Sancion> sanciones = Sancion.obtenerTodas();
+            for (Sancion sancion : sanciones) {
+                if (sancion.getIdUsuario().equals(usuario.getIdUsuario())) {
+                    listaSanciones.add(sancion);
+                }
             }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al cargar las sanciones del usuario.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar las sanciones del usuario.", e);
         }
     }
 
@@ -104,8 +113,8 @@ public class ControladorSanciones {
                 String lowerCaseFilter = newValue.toLowerCase();
                 return sancion.getMotivo().toLowerCase().contains(lowerCaseFilter) ||
                         String.valueOf(sancion.getMonto()).contains(lowerCaseFilter) ||
-                        sancion.getFechaHora().toLowerCase().contains(lowerCaseFilter) ||
-                        sancion.getFechaMaxPago().toLowerCase().contains(lowerCaseFilter);
+                        sancion.getFechaHoraFormateada().toLowerCase().contains(lowerCaseFilter) ||
+                        sancion.getFechaMaxPagoFormateada().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -114,7 +123,7 @@ public class ControladorSanciones {
                 if (newValue == null) {
                     return true;
                 }
-                return sancion.getFechaHora().compareTo(newValue.toString()) >= 0;
+                return sancion.getFechaHora().toLocalDate().compareTo(newValue) >= 0;
             });
         });
 
@@ -123,7 +132,7 @@ public class ControladorSanciones {
                 if (newValue == null) {
                     return true;
                 }
-                return sancion.getFechaHora().compareTo(newValue.toString()) <= 0;
+                return sancion.getFechaHora().toLocalDate().compareTo(newValue) <= 0;
             });
         });
 
@@ -135,7 +144,12 @@ public class ControladorSanciones {
 
     @FXML
     private void buscarSancion() {
-        configurarBusqueda();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al realizar la búsqueda de sanciones.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al realizar la búsqueda de sanciones.", e);
+        }
     }
 
     @FXML
@@ -143,16 +157,28 @@ public class ControladorSanciones {
         txtBuscar.clear();
         filtroFechaInicio.setValue(null);
         filtroFechaFin.setValue(null);
-        configurarBusqueda();
+        try {
+            configurarBusqueda();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al limpiar los filtros de búsqueda.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al limpiar los filtros de búsqueda.", e);
+        }
     }
 
     @FXML
     private void pagarSancion() {
         Sancion sancionSeleccionada = tablaSanciones.getSelectionModel().getSelectedItem();
         if (sancionSeleccionada != null) {
-            sancionSeleccionada.eliminar();
-            tablaSanciones.getItems().remove(sancionSeleccionada);
-            labelDetalles.setText("Sanción pagada exitosamente.");
+            try {
+                sancionSeleccionada.eliminar();
+                tablaSanciones.getItems().remove(sancionSeleccionada);
+                labelDetalles.setText("Sanción pagada exitosamente.");
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al pagar la sanción.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al pagar la sanción.", e);
+            }
+        } else {
+            mostrarAlerta("Advertencia", "Por favor, seleccione una sanción para pagar.", Alert.AlertType.WARNING);
         }
     }
 
@@ -160,10 +186,17 @@ public class ControladorSanciones {
     private void disputarSancion() {
         Sancion sancionSeleccionada = tablaSanciones.getSelectionModel().getSelectedItem();
         if (sancionSeleccionada != null) {
-            sancionSeleccionada.setMotivo(sancionSeleccionada.getMotivo() + " - Disputada");
-            sancionSeleccionada.actualizar();
-            tablaSanciones.refresh();
-            labelDetalles.setText("Sanción disputada exitosamente.");
+            try {
+                sancionSeleccionada.setMotivo(sancionSeleccionada.getMotivo() + " - Disputada");
+                sancionSeleccionada.actualizar();
+                tablaSanciones.refresh();
+                labelDetalles.setText("Sanción disputada exitosamente.");
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al disputar la sanción.", Alert.AlertType.ERROR);
+                LOGGER.log(Level.SEVERE, "Error al disputar la sanción.", e);
+            }
+        } else {
+            mostrarAlerta("Advertencia", "Por favor, seleccione una sanción para disputar.", Alert.AlertType.WARNING);
         }
     }
 
@@ -182,8 +215,8 @@ public class ControladorSanciones {
             stage.setTitle("Menú Principal");
             stage.show();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
             mostrarAlerta("Error", "No se pudo cargar el menú principal.", Alert.AlertType.ERROR);
+            LOGGER.log(Level.SEVERE, "Error al cargar la vista principal", e);
         }
     }
 
